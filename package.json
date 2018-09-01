@@ -1,0 +1,29 @@
+{
+  "name": "iot-ex",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^3.3.7",
+    "chart.js": "^2.7.2",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-http-proxy": "^1.2.0",
+    "express-session": "^1.15.6",
+    "hide-powered-by": "^1.0.0",
+    "http-errors": "~1.6.2",
+    "jquery": "^3.3.1",
+    "mongoose": "^5.2.8",
+    "morgan": "~1.9.0",
+    "mqtt": "^2.18.3",
+    "pg-promise": "^8.4.5",
+    "popper.js": "^1.14.4"
+  }
+}

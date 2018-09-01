@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Blank Page</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel='stylesheet' href='/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/css/adminlte.min.css' />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="/css/skins/_all-skins.min.css" />
+  <link rel="stylesheet" href="/css/ionicons.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+<body class="layout-top-nav hold-transition skin-green-light">
+<!-- Site wrapper -->
+<div class="wrapper">
+      <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+            <h1>
+                    <%= error.status %> <%= message %>
+            </h1>
+          </section>
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-body">
+                <pre><%= error.stack %></pre>
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.0
+    </div>
+    <strong>Copyright &copy; 2018 <a href="/">Ahmad Herdiansyah</a>.</strong> All rights
+    reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
+<script src="/dist/jquery.min.js"></script>
+<script src="/dist/js/bootstrap.min.js"></script>
+<script src="/js/adminlte.min.js"></script>
+</body>
+</html>

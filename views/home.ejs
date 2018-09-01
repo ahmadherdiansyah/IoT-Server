@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Smart Home Panel</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel='stylesheet' href='/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/css/adminlte.min.css' />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="/css/skins/_all-skins.min.css" />
+  <link rel="stylesheet" href="/css/ionicons.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+<body class="hold-transition skin-green-light sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>S</b>H</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Smarthome</b> Panel</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="hidden-xs"><%= data.username %></span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <p><%= data.username %>
+                </p>
+              </li>
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="/login/logout" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =============================================== -->
+
+  <!-- Left side column. contains the sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="/img/user-male-icon.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p><%= data.username %></p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active">
+          <a href="/users">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/sensors">
+            <i class="fa fa-lightbulb-o"></i> <span>Sensors</span>
+          </a>
+        </li>
+        <li>
+          <a href="/controls">
+            <i class="fa fa-power-off"></i> <span>Controls</span>
+          </a>
+        </li>
+        <li>
+          <a href="/cctv">
+            <i class="fa fa-camera"></i> <span>CCTV</span>
+          </a>
+        </li>
+        <li>
+          <a href="/login/logout">
+            <i class="fa fa-sign-out"></i> <span>Logout</span>
+          </a>
+        </li>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
+      <ol class="breadcrumb">
+        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-lg-4 col-sm-12">
+          <div class="info-box">
+            <!-- Apply any bg-* class to to the icon to color it -->
+            <span class="info-box-icon bg-red"><i class="fa fa-thermometer-empty"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Suhu</span>
+              <span class="info-box-number" id="suhu"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+          <div class="info-box">
+            <!-- Apply any bg-* class to to the icon to color it -->
+            <span class="info-box-icon bg-blue"><i class="fa fa-tint"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Kelembaban</span>
+              <span class="info-box-number" id="kelembaban"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+          <div class="info-box">
+            <!-- Apply any bg-* class to to the icon to color it -->
+            <span class="info-box-icon bg-grey"><i class="fa fa-fire"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">GAS</span>
+              <span class="info-box-number" id="asaps"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="box">
+              <div class="box-body">
+                  <canvas id="myChart1"></canvas>
+              </div>
+            </div>
+        </div> 
+        <div class="col-lg-6">
+            <div class="box">
+              <div class="box-body">
+                  <canvas id="asap"></canvas>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.0
+    </div>
+    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
+<script src="/dist/jquery.min.js"></script>
+<script src="/dist/js/bootstrap.min.js"></script>
+<script src="/js/adminlte.min.js"></script>
+<script src="/js/Chart.bundle.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+    var canvas = document.getElementById('myChart1');
+    var canvas1 = document.getElementById('asap');
+var data1 = {
+  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  datasets: [
+    {
+      label: "Suhu",
+      fill: false,
+      lineTension: 0.0,
+      backgroundColor: "rgba(75,192,192,0.4)",
+      borderColor: "rgba(75,192,192,1)",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(75,192,192,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 5,
+      pointHitRadius: 10,
+      data: [65, 59, 80, 0, 56, 55, 40],
+    },
+    {
+      label: "Kelembaban",
+      fill: false,
+      lineTension: 0.0,
+      backgroundColor: "rgba(43,87,151,0.4)",
+      borderColor: "rgba(43,87,151,1)",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(43,87,151,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(43,87,151,1)",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 5,
+      pointHitRadius: 10,
+      data: [65, 59, 80, 0, 56, 55, 40],
+    }
+  ]
+};
+var data2 = {
+  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  datasets: [
+    {
+      label: "asap",
+      fill: false,
+      lineTension: 0.0,
+      backgroundColor: "rgba(75,192,192,0.4)",
+      borderColor: "rgba(75,192,192,1)",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(75,192,192,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 5,
+      pointHitRadius: 10,
+      data: [65, 59, 80, 0, 56, 55, 40],
+    }
+  ]
+};
+
+var zero = 7;
+function adddata(){
+  $.ajax({
+          url: "/api/data",
+          method: "POST",
+          data : {
+            topic : "/sensor/suhu",
+            limit : "1"
+          },
+          success: function(data) {
+            console.log(data);
+              for(var i in data) {
+                myLineChart.data.labels.push(data[i].date);
+                myLineChart.data.labels.splice(0, 1);
+                myLineChart.data.datasets[0].data.splice(0, 1);
+                console.log(myLineChart.data.datasets[0].data);
+                myLineChart.data.datasets[0].data.push(data[i].message); 
+                $("#suhu").text(data[i].message+"°C");
+                myLineChart.update();
+              }
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        });
+        $.ajax({
+          url: "/api/data",
+          method: "POST",
+          data : {
+            topic : "/sensor/kelembaban",
+            limit : "1"
+          },
+          success: function(data) {
+            console.log(data);
+              for(var i in data) {
+                myLineChart.data.datasets[1].data.splice(0, 1);
+                myLineChart.data.datasets[1].data.push(data[i].message); 
+                $("#kelembaban").text(data[i].message+"%");
+                myLineChart.update();
+              }
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        });
+        $.ajax({
+          url: "/api/data",
+          method: "POST",
+          data : {
+            topic : "/sensor/gas",
+            limit : "1"
+          },
+          success: function(data) {
+            console.log(data);
+              for(var i in data) {
+                asap.data.labels.push(data[i].date);
+                asap.data.labels.splice(0, 1);
+                asap.data.datasets[0].data.splice(0, 1);
+                console.log(asap.data.datasets[0].data);
+                asap.data.datasets[0].data.push(data[i].message);
+                if (data[i].message <= 100) {
+                $("#asaps").text("Tidak Ada Kebocoran GAS");
+                }
+                else{
+                  $("#asaps").text("Ada Kebocoran GAS");
+                } 
+                asap.update();
+              }
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        });
+}
+
+setInterval(function(){
+  adddata();
+},6000);
+
+var option = {
+  showLines: true,
+  scales: {
+    yAxes: [{
+      display: true,
+      ticks: {
+        beginAtZero:true,
+        min: 0,
+        max: 100  
+      }
+    }]
+  }
+};
+var option1 = {
+  showLines: true,
+  scales: {
+    yAxes: [{
+      display: true,
+      ticks: {
+        beginAtZero:true,
+        min: 0,
+        max: 800  
+      }
+    }]
+  }
+};
+var myLineChart = Chart.Line(canvas,{
+  data:data1,
+  options:option
+});
+var asap = Chart.Line(canvas1,{
+  data:data2,
+  options:option1
+});
+
+  });
+  
+</script>
+</body>
+</html>
