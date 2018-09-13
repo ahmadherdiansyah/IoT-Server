@@ -6,27 +6,26 @@ router.post('/', function(req, res, next) {
     var userData = {
       username: req.body.username,
       password: req.body.password,
-      is_superuser: "false",
+      is_superuser: "true",
     }
     User.findOne({ username: req.body.username })
     .exec(function (err, user) {
       if (err) {
         return callback(err)
       } else if (!user) {
-        User.create(userData, function (error, user) {
-            if (error) {
-              return next(error);
-            } else {
-              req.session.userId = user._id;
-              return res.redirect('/profile');
-            }
-          });
+          res.render('index',{title : "login",data : "Username atau password salah!"})
+        // User.create(userData, function (error, user) {
+        //     if (error) {
+        //       return next(error);
+        //     } else {
+        //       req.session.userId = user._id;
+        //       return res.redirect('/profile');
+        //     }
+        //   });
       }else if (user) {
         User.authenticate(req.body.username, req.body.password, function (error, user) {
             if (error || !user) {
-              var err = new Error('Wrong email or password.');
-              err.status = 401;
-              return next(err);
+              res.render('index',{title : "login",data : "Username atau password salah!"})
             } else {
               req.session.userId = user._id;
               return res.redirect('/users');
@@ -40,8 +39,38 @@ router.post('/', function(req, res, next) {
     return next(err);
   }
 });
+router.post('/create', function(req, res, next) {
+  if (req.body.username && req.body.password) {
+    var userData = {
+      username: req.body.username,
+      password: req.body.password,
+      is_superuser: "true",
+    }
+    User.create(userData, function (error, user) {
+            if (error) {
+              //return next(error);
+              res.send(error);
+            } else {
+              req.session.userId = user._id;
+              return res.redirect('/users');
+            }
+         });
+  }else {
+    var err = new Error('All fields required.');
+    err.status = 400;
+    return next(err);
+  }
+});
 router.get('/',function (req,res,next) {
-    res.render('index',{title : "login"})
+  User.findOne({ username: "admin" })
+    .exec(function (err, user) {
+    if (!user) {
+      res.render('admin_create',{title : "Admin Create",data:"clean"})
+    }
+    else{
+      res.render('index',{title : "login",data : "clean"});
+    }
+    });
 });
 router.get('/profile', function (req, res, next) {
     User.findById(req.session.userId)
