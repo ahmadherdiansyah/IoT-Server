@@ -14,11 +14,12 @@ var mqttapi = require('./routes/mqttapi');
 var login = require('./routes/login');
 var sensors = require('./routes/sensors'); 
 var controls = require('./routes/control');
-var cctv = require('./routes/cctv'); 
+var cctv = require('./routes/cctv');
+var user_management = require('./routes/user-management'); 
 var proxy = require('express-http-proxy');
 var app = express();
 // { useNewUrlParser: true }
-mongoose.connect('mongodb://localhost:27017/mqtt');
+mongoose.connect('mongodb://103.115.164.134:27017/mqtt');
 mongoose.set('debug', true);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -51,6 +52,7 @@ app.use('/login',login);
 app.use('/sensors',sensors);
 app.use('/controls',controls);
 app.use('/cctv',cctv);
+app.use('/user-management', user_management);
 app.use('/cctv/api', proxy('http://192.168.46.3:8080'));
 app.use(function(req, res, next) {
   next(createError(404));
