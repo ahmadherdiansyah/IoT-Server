@@ -1,8 +1,6 @@
 var express = require('express');
 var User = require('../models/user');
 var router = express.Router();
-
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   User.findById(req.session.userId)
       .exec(function (error, user) {
@@ -21,25 +19,30 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/create', function(req, res, next) {
-    var card = "Not Registered";
-    var mac = "Not Registered";
+    var card;
+    var mac;
     if (req.body.username && req.body.password) {
         if(req.body.cardkey != null){
             card = req.body.cardkey;
+        } else {
+            card = 'Not Registered';
         }
         if(req.body.mac != null) {
             mac = req.body.mac;
+        } else {
+            mac = 'Not Registered';
         }
         var userData = {
+        name: req.body.name,
         username: req.body.username,
         password: req.body.password,
         is_superuser: req.body.superuser,
-        cardkey: card ,
+        card: card,
         mac: mac,
     }
         User.create(userData, function (error, user) {
             if (error) {
-                //return next(error);
+                // return next(error);
                 res.send(error);
             } else {
                 req.session.userId = user._id;
