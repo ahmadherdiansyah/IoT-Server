@@ -47,14 +47,134 @@
                             <td class="text-center" style="vertical-align:middle"><%= semua[i].id %></td>
                             <td style="vertical-align:middle"><%= semua[i].name %></td>
                             <td style="vertical-align:middle"><%= semua[i].username %></td>
-                            <td class="text-center" style="vertical-align:middle"><%= semua[i].card %></td>
-                            <td class="text-center" style="vertical-align:middle"><%= semua[i].mac %></td>
                             <td class="text-center" style="vertical-align:middle">
-                                <button class="btn btn-xs btn-primary"><i class="fa fa-table"></i> Detail</button>
-                                <button class="btn btn-xs btn-success"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                            <% if(semua[i].card == '-') { %>
+                                Not Registered
+                            <% } else { %>
+                                Registered
+                            <% } %> </td>
+                            <td class="text-center" style="vertical-align:middle">
+                            <% if(semua[i].mac == '-') { %>
+                                Not Registered
+                            <% } else { %>
+                                Registered
+                            <% } %> </td>
+                            <td class="text-center" style="vertical-align:middle">
+                                <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#model<%= semua[i].id %>"><i class="fa fa-table"></i> Detail</button>
+                                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#edit<%= semua[i].id %>"><i class="fa fa-pencil-square-o"></i> Edit</button>
                                 <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</button>
                             </td>
-                        </tr>
+                        </tr>        
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="edit<%= semua[i].id %>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                        <h4 class="modal-title" id="modelTitleId">Edit User <%= semua[i].name %></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <form action="/edit">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <div class="form-group">
+                                                            <label for="name">Name</label>
+                                                            <input type="text" name="name" id="name" class="form-control" value="<%= semua[i].name %>" placeholder="User Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username">Username</label>
+                                                            <input type="text" name="username" id="username" class="form-control" value="<%= semua[i].username %>" placeholder="Username">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="password">Password</label>
+                                                            <input type="text" name="password" id="password" class="form-control" placeholder="Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="cardkey">Card Key</label>
+                                                            <input type="text" name="cardkey" id="cardkey" class="form-control" value="
+                                                            <% if(semua[i].card == '-') { %>
+                                                                Waiting for Card scan... 
+                                                            <% } else { %>
+                                                                <%= semua[i].card %>
+                                                            <% } %>
+                                                            " placeholder="Waiting for Card scan..." readonly>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="MAC">MAC Address</label>
+                                                            <input type="text" name="mac" id="MAC" class="form-control" value="
+                                                            <% if(semua[i].mac == '-') { %>
+                                                                Waiting for Card scan... 
+                                                            <% } else { %>
+                                                                <%= semua[i].card %>
+                                                            <% } %>
+                                                            " placeholder="AA:BB:DD:CC:EE:FF">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <img src="img/RFD_02-512.png" width="100%" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            $('#exampleModal').on('show.bs.modal', event => {
+                                var button = $(event.relatedTarget);
+                                var modal = $(this);
+                                // Use above variables to manipulate the DOM
+                                
+                            });
+                        </script>                
+                        <!-- Modal -->
+                        <div class="modal fade" id="model<%= semua[i].id %>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                        <h4 class="modal-title" id="modelTitleId">Detail User <%= semua[i].name %></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Username :</label>
+                                            <%= semua[i].username %>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Card Key Status</label>
+                                            <% if(semua[i].card == '-') { %>
+                                                Not Registered
+                                            <% } else { %>
+                                                Registered
+                                            <% } %> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label>MAC Address</label>
+                                            <% if(semua[i].mac == '-') { %>
+                                                Not Registered
+                                            <% } else { %>
+                                                Registered
+                                            <% } %> 
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <% }%>
                     </table>
                 </div>
@@ -63,6 +183,7 @@
     </div>
     <% include partials/footer %>
 
+    
 <!-- Modal -->
 <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
