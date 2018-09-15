@@ -68,12 +68,12 @@ router.post("/login",function (req,res,next) {
   }
 });
 router.get("/login",function (req,res,next) {
- if (req.body.username && req.body.password) {
+ if (req.query.username && req.query.password) {
     var userData = {
       username: req.query.username,
       password: req.query.password
     }
-    User.findOne({ username: req.body.username })
+    User.findOne({ username: req.query.username })
     .exec(function (err, user) {
       if (err) {
         return callback(err)
@@ -82,7 +82,7 @@ router.get("/login",function (req,res,next) {
       "Pesan": "Username atau password salah"
       }]);
       }else if (user) {
-        User.authenticate(req.body.username, req.body.password, function (error, user) {
+        User.authenticate(req.query.username, req.query.password, function (error, user) {
             if (error || !user) {
               res.json([{
               "Pesan": "Username atau password salah"
