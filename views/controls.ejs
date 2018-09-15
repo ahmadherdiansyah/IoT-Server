@@ -142,7 +142,7 @@
   });
   function kirim(data) {
       $.ajax({
-          url: "/api/mqtt/publish",
+          url: "https://server1.stmiot-tech.xyz/api/mqtt/publish",
           method: "POST",
           data : {
             topic : "/controls",
@@ -162,7 +162,7 @@
   }
   function cekdata(angka){
         $.ajax({
-          url: "/api/data",
+          url: "https://server1.stmiot-tech.xyz/api/data",
           method: "POST",
           data : {
             topic : "/status/lampu"+angka,
