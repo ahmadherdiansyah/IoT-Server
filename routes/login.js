@@ -6,7 +6,7 @@ router.post('/', function(req, res, next) {
     var userData = {
       username: req.body.username,
       password: req.body.password,
-      is_superuser: "true",
+//      is_superuser: "true",
     }
     User.findOne({ username: req.body.username })
     .exec(function (err, user) {
