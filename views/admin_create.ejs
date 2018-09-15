@@ -22,6 +22,10 @@
         <p class="login-box-msg">Membuat user admin</p>
       <form action="login/create" method="post">
         <div class="form-group has-feedback">
+          <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
           <input type="text" class="form-control" name="username" placeholder="Username">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
@@ -29,10 +33,16 @@
           <input type="password" class="form-control" name="password" placeholder="Password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
+        <div class="form-group has-feedback">
+          <input type="text" name="cardkey" id="cardkey" class="form-control" placeholder="Card Key">
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" name="mac" id="mac" class="form-control" placeholder="MAC Address">
+        </div>
         <div class="row">
           <!-- /.col -->
           <div class="col-xs-12">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign Up</button>
           </div>
           <!-- /.col -->
         </div>

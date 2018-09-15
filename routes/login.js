@@ -42,8 +42,11 @@ router.post('/', function(req, res, next) {
 router.post('/create', function(req, res, next) {
   if (req.body.username && req.body.password) {
     var userData = {
+      name: req.body.name,
       username: req.body.username,
       password: req.body.password,
+      card: req.body.cardkey,
+      mac : req.body.mac,
       is_superuser: "true",
     }
     User.create(userData, function (error, user) {
