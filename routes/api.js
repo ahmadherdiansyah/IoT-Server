@@ -153,10 +153,29 @@ router.post('/webhook', (req, res) => {
   client.subscribe('/status')
   client.on('message', function (topic, message) {
     //respon = message.toString();
-  })
+  });
+var headers = {
+    'User-Agent':       'Super Agent/0.0.1',
+    'Content-Type':     'application/x-www-form-urlencoded',
+    'X-Secret': 'ODdncjc0WFVGaXRoNmtUa0EyMjNhYXBna3JRYTp1djFSV0RfQ2JKNFZXT0JCdHpJdjYzUFR0em9h'}
   if (alat == "lampu") {
     if (aksi == "mati") {
-      client.publish('+/6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "+nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
+      //client.publish('+/6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "+nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
+// Configure the request
+var options = {
+    url: 'https://flexiot.xl.co.id/api/applicationmgt/authenticate',
+    method: 'GET',
+    headers: headers,
+    //form: {'key1': 'xxx', 'key2': 'yyy'}
+}
+
+// Start the request
+request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        // Print out the response body
+        console.log(body)
+    }
+})
       respon = alat +" " + nomor + " sudah "+ aksi;
       ga(respon);
     }
