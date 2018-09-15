@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     unique: true,
@@ -14,6 +18,14 @@ var UserSchema = new mongoose.Schema({
   is_superuser: {
     type: Boolean,
     required: true,
+  },
+  card: {
+    type: String,
+    index: true
+  },
+  mac: {
+    type: String,
+    index: true
   }
 });
 //authenticate input against database
