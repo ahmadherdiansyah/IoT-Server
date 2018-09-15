@@ -183,18 +183,22 @@ function adddata(){
           url: "/api/data",
           method: "POST",
           data : {
-            topic : "/sensor/suhu",
+            topic : "generic_brand_810/generic_device/v1/common",
             limit : "1"
           },
           success: function(data) {
             console.log(data);
               for(var i in data) {
+                var Message = data[0].message;
+                var newMessage = Message.replace(',{',',');
+                var newMessage1 = newMessage.replace('},', ',');
+                var Messages = JSON.parse(newMessage1);
                 myLineChart.data.labels.push(data[i].date);
                 myLineChart.data.labels.splice(0, 1);
                 myLineChart.data.datasets[0].data.splice(0, 1);
                 console.log(myLineChart.data.datasets[0].data);
-                myLineChart.data.datasets[0].data.push(data[i].message); 
-                $("#suhu").text(data[i].message+"°C");
+                myLineChart.data.datasets[0].data.push(Messages.dht11);
+                $("#suhu").text(Messages.dht11+"°C");
                 myLineChart.update();
               }
           },
