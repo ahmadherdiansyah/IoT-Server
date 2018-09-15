@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mqtt = require('mqtt')
+var User = require('../models/user');
 var data = require('../models/mqtt_data');
 var respon;
 var client = mqtt.connect({ port: 1883, host: 'localhost', keepalive: 10000})
