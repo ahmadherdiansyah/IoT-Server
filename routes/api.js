@@ -79,7 +79,7 @@ router.get("/login",function (req,res,next) {
         return callback(err)
       } else if (!user) {
         res.json([{
-      "Pesan": "Username atau password salah"
+      "Pesan": "Username atau password salah",
       }]);
       }else if (user) {
         User.authenticate(req.query.username, req.query.password, function (error, user) {
@@ -89,7 +89,8 @@ router.get("/login",function (req,res,next) {
               }]);
             } else {
               res.json([{
-                "Pesan": "sukses"
+                "Pesan": "sukses",
+                "id" : user.id
               }]);
             }
           });  
