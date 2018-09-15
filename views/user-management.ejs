@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+<body class="hold-transition skin-green sidebar-mini">
+<div class="wrapper">
+    <% include partials/header %>
+    
+    <% include partials/sidebar %>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+              User Management
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/users"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active"><a href="#"><i class="fa fa-users"></i> User Management</a></li>
+            </ol>
+        </section>
+        <div class="content">
+            <div class="box box-solid no-border box-success">
+                <div class="box-header">
+                    <h4 class="box-title">
+                        User List
+                    </h4>
+                    <div class="pull-right">
+                        <button class="btn btn-default bg-green" data-toggle="modal" data-target="#addUser">Add User</button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-striped table-bordered table-condensed">
+                        <tr>
+                            <th width="2%" class="text-center">Id</th>
+                            <th width="20%">Nama User</th>
+                            <th width="20%">Username</th>
+                            <th width="20%" class="text-center">Status ID Card</th>
+                            <th width="10%" class="text-center">Mac</th>
+                            <th width="20%" class="text-center">Action</th>
+                        </tr>
+                        <tr>
+                            <td class="text-center" style="vertical-align:middle">1</td>
+                            <td style="vertical-align:middle">John Doe</td>
+                            <td style="vertical-align:middle">johndoe</td>
+                            <td class="text-center" style="vertical-align:middle">Registered</td>
+                            <td class="text-center" style="vertical-align:middle">AA:BB:CC:DD:EE:FF</td>
+                            <td class="text-center" style="vertical-align:middle">
+                                <button class="btn btn-xs btn-primary"><i class="fa fa-table"></i> Detail</button>
+                                <button class="btn btn-xs btn-success"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                                <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" style="vertical-align:middle">2</td>
+                            <td style="vertical-align:middle">Johs Doe</td>
+                            <td style="vertical-align:middle">johsdoe</td>
+                            <td class="text-center" style="vertical-align:middle">Not Registered</td>
+                            <td class="text-center" style="vertical-align:middle">Not Registered</td>
+                            <td class="text-center" style="vertical-align:middle">
+                                <button class="btn btn-xs btn-primary"><i class="fa fa-table"></i> Detail</button>
+                                <button class="btn btn-xs btn-success"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                                <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% include partials/footer %>
+
+<!-- Modal -->
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-green">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                <h4 class="modal-title" id="modelTitleId">Add User</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/user-management/create" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nama User</label>
+                        <input type="text" name="name" id="name" class="form-control input-lg" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" class="form-control input-lg" placeholder="johndoe">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" name="password" id="password" class="form-control input-lg" placeholder="password">
+                    </div>
+                    <div class="form-group">
+                        <input type="radio" name="superuser" id="superuser" value="true">
+                        <label for="superuser">Superuser</label>
+                        <input type="radio" name="superuser" id="user" value="false">
+                        <label for="user">User</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardkey">Card Key (Optional)</label>
+                        <input type="text" name="cardkey" id="cardkey" class="form-control input-lg" placeholder="0x20; 0xb2; 0xfb; 0x73; 20b2fb73">
+                    </div>
+                    <div class="form-group">
+                        <label for="mac">MAC Address (Optional)</label>
+                        <input type="text" name="mac" id="mac" class="form-control input-lg" placeholder="AA:BB:CC:DD:EE:FF">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+    <% include partials/script %>
+</body>
+</html>

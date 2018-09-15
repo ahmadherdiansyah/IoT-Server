@@ -1,115 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Smart Home Panel</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel='stylesheet' href='/css/bootstrap.min.css' />
-  <link rel='stylesheet' href='/css/adminlte.min.css' />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="/css/skins/_all-skins.min.css" />
-  <link rel="stylesheet" href="/css/ionicons.min.css">
-  <link rel="stylesheet" href="/css/font-awesome.min.css">
-</head>
-<body class="hold-transition skin-green-light sidebar-mini">
+  <% include partials/head %>
+<body class="hold-transition skin-green sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>S</b>H</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Smarthome</b> Panel</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs"><%= data.username %></span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <p><%= data.username %>
-                </p>
-              </li>
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="/login/logout" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <% include partials/header %>
 
   <!-- =============================================== -->
 
   <!-- Left side column. contains the sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="/img/user-male-icon.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p><%= data.username %></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
-          <a href="/users">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a href="/sensors">
-            <i class="fa fa-lightbulb-o"></i> <span>Sensors</span>
-          </a>
-        </li>
-        <li>
-          <a href="/controls">
-            <i class="fa fa-power-off"></i> <span>Controls</span>
-          </a>
-        </li>
-        <li>
-          <a href="/cctv">
-            <i class="fa fa-camera"></i> <span>CCTV</span>
-          </a>
-        </li>
-        <li>
-          <a href="/login/logout">
-            <i class="fa fa-sign-out"></i> <span>Logout</span>
-          </a>
-        </li>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+  
+    <% include partials/sidebar %>
+    
 
   <!-- =============================================== -->
 
@@ -134,7 +37,10 @@
             <span class="info-box-icon bg-red"><i class="fa fa-thermometer-empty"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">Suhu</span>
-              <span class="info-box-number" id="suhu"></span>
+              <span class="info-box-number" id="suhu">31°</span>
+              <div class="progress" style="background-color:#fff">
+                <div class="progress-bar bg-red" style="width:75%"></div>
+              </div>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -145,7 +51,10 @@
             <span class="info-box-icon bg-blue"><i class="fa fa-tint"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">Kelembaban</span>
-              <span class="info-box-number" id="kelembaban"></span>
+              <span class="info-box-number" id="kelembaban">25%</span>
+              <div class="progress" style="background-color:#fff">
+                <div class="progress-bar bg-blue" style="width: 25%"></div>
+              </div>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -156,7 +65,10 @@
             <span class="info-box-icon bg-grey"><i class="fa fa-fire"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">GAS</span>
-              <span class="info-box-number" id="asaps"></span>
+              <span class="info-box-number" id="asaps">10%</span>
+              <div class="progress" style="background-color: #fff">
+                <div class="progress-bar bg-gray" style="width: 10%"></div>
+              </div>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -180,19 +92,12 @@
       </div>
     </section>
   </div>
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
+  
+    <% include partials/footer %>
+    
 </div>
 <!-- ./wrapper -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/adminlte.min.js"></script>
-<script src="/js/Chart.bundle.min.js"></script>
+<% include partials/script %>
 <script>
   $(document).ready(function () {
     $('.sidebar-menu').tree()

@@ -1,107 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Smart Home Panel</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel='stylesheet' href='/css/bootstrap.min.css' />
-  <link rel='stylesheet' href='/css/adminlte.min.css' />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="/css/skins/_all-skins.min.css" />
-  <link rel="stylesheet" href="/css/ionicons.min.css">
-  <link rel="stylesheet" href="/css/font-awesome.min.css">
+ <% include partials/head %>
 </head>
-<body class="hold-transition skin-green-light sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>S</b>H</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Smarthome</b> Panel</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+  <% include partials/header %>
+  
+  
+    <% include partials/sidebar %>
+    
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs"><%= data.username %></span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <p><%= data.username %>
-                </p>
-              </li>
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="/login/logout" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <aside class="main-sidebar">
-    <section class="sidebar">
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="/img/user-male-icon.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p><%= data.username %></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li>
-          <a href="/users">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
-        </li>
-        <li class="active">
-          <a href="/sensors">
-            <i class="fa fa-lightbulb-o"></i> <span>Sensors</span>
-          </a>
-        </li>
-        <li>
-          <a href="/controls">
-            <i class="fa fa-power-off"></i> <span>Controls</span>
-          </a>
-        </li>
-        <li>
-            <a href="/cctv">
-              <i class="fa fa-camera"></i> <span>CCTV</span>
-            </a>
-          </li>
-        <li>
-          <a href="/login/logout">
-            <i class="fa fa-sign-out"></i> <span>Logout</span>
-          </a>
-        </li>
-    </section>
-  </aside>
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
@@ -115,52 +25,67 @@
    <section class="content">
     <div class="row">
       <div class="col-lg-4">
-        <div class="box box-solid box-primary">
+        <div class="box box-solid no-border box-primary">
           <div class="box-header">
             <h3 class="box-title">Suhu</h3>
-            <div class="box-tools">
-              <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-              <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-            </div>
           </div>
           <div class="box-body">
             <p>
               Topic : /sensor/suhu<br>
-              Value : <span id="suhu"></span>
+              <div class="row">
+                <div class="col-xs-2">
+                  Value : 
+                </div>
+                <div class="col-xs-10">
+                  <div class="progress">
+                    <div class="progress-bar bg-yellow" style="width: 75%">31°C</div>  
+                  </div>
+                </div>
+              </div>
             </p>
           </div>
         </div>
       </div>
       <div class="col-lg-4">
-          <div class="box box-solid box-primary">
+          <div class="box box-solid no-border box-primary">
             <div class="box-header">
               <h3 class="box-title">Kelembaban</h3>
-              <div class="box-tools">
-                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-              </div>
             </div>
             <div class="box-body">
               <p>
                 Topic : /sensor/kelembaban<br>
-                Value : <span id="kelembaban"></span>
+                <div class="row">
+                  <div class="col-xs-2">
+                    Value :
+                  </div>
+                  <div class="col-xs-10">
+                    <div class="progress">
+                      <div class="progress-bar bg-blue" style="width: 24%">24%</div>  
+                    </div>
+                  </div>
+                </div>
               </p>
             </div>
           </div>
         </div>
         <div class="col-lg-4">
-            <div class="box box-solid box-primary">
+            <div class="box box-solid no-border box-primary">
               <div class="box-header">
                 <h3 class="box-title">Kebocoran Gas</h3>
-                <div class="box-tools">
-                  <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                  <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                </div>
               </div>
               <div class="box-body">
                 <p>
                   Topic : /sensor/gas<br>
-                  Value : <span id="gas"></span>
+                  <div class="row">
+                    <div class="col-xs-2">
+                      Value : 
+                    </div>
+                    <div class="col-xs-10">
+                      <div class="progress">
+                        <div class="progress-bar bg-blue muted" style="width: 5%">5%</div>  
+                      </div>
+                    </div>
+                  </div>
                 </p>
               </div>
             </div>
@@ -169,17 +94,13 @@
     </div>
     </section>
   </div>
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.0.0
-    </div>
-    <strong>Copyright &copy; 2018 <a href="">Ahmad Herdiansyah</a>.</strong> All rights
-    reserved.
-  </footer>
+  
+    <% include partials/footer %>
+    
 </div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/adminlte.min.js"></script>
+
+  <% include partials/script %>
+
 <script>
   $(document).ready(function () {
     $('.sidebar-menu').tree();
