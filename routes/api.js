@@ -33,6 +33,24 @@ router.post("/data",function (req,res,next) {
       res.send(users);
   });
 });
+router.get("/secret",function (req,res,next) {
+  User.findById(req.query.id)
+      .exec(function (error, user) {
+        if (error) {
+          return next(error);
+        } else {
+          if (user === null) {
+            res.json([{
+              "Pesan": "Username atau password salah"
+              }]);
+          } else {
+            res.json([{
+              user
+            }]);
+          }
+        }
+      });
+});
 router.post("/login",function (req,res,next) {
  if (req.body.username && req.body.password) {
     var userData = {
