@@ -4,7 +4,7 @@ var mqtt = require('mqtt')
 var User = require('../models/user');
 var data = require('../models/mqtt_data');
 var respon;
-var client = mqtt.connect({ port: 1883, host: 'localhost', keepalive: 10000})
+var client = mqtt.connect({ port: 1883, host: 'mqtt.flexiot.xl.co.id', keepalive: 10000})
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.json([{
