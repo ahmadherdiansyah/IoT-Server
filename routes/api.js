@@ -70,8 +70,8 @@ router.post("/login",function (req,res,next) {
 router.get("/login",function (req,res,next) {
  if (req.body.username && req.body.password) {
     var userData = {
-      username: req.body.username,
-      password: req.body.password
+      username: req.query.username,
+      password: req.query.password
     }
     User.findOne({ username: req.body.username })
     .exec(function (err, user) {
