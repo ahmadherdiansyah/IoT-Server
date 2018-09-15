@@ -12,7 +12,10 @@ router.get('/', function(req, res, next) {
             err.status = 400;
             return next(err);
           } else {
-            return res.render('user-management',{data : user});
+            User.find({}, function( err, count){
+                console.log( "Number of users:", count );
+            return res.render('user-management',{data : user,semua : count});
+            })
           }
         }
       });
