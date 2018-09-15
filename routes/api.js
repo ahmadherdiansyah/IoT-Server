@@ -161,7 +161,7 @@ router.post('/webhook', (req, res) => {
       ga(respon);
     }
     if (aksi == "nyala") {
-      client.publish('132830/6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
+      client.publish('132830/6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "+nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
       respon = alat +" " + nomor + " sudah "+ aksi;
       ga(respon);
     } 
