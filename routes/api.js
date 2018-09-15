@@ -3,7 +3,7 @@ var router = express.Router();
 var mqtt = require('mqtt')
 var data = require('../models/mqtt_data');
 var respon;
-var client = mqtt.connect({ port: 1883, host: '192.168.46.3', keepalive: 10000})
+var client = mqtt.connect({ port: 1883, host: 'localhost', keepalive: 10000})
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.json([{
@@ -32,6 +32,40 @@ router.post("/data",function (req,res,next) {
       res.send(users);
   });
 });
+router.post("/login",function (req,res,next) {
+ if (req.body.username && req.body.password) {
+    var userData = {
+      username: req.body.username,
+      password: req.body.password
+    }
+    User.findOne({ username: req.body.username })
+    .exec(function (err, user) {
+      if (err) {
+        return callback(err)
+      } else if (!user) {
+        res.json([{
+      "Pesan": "Username atau password salah"
+      }]);
+      }else if (user) {
+        User.authenticate(req.body.username, req.body.password, function (error, user) {
+            if (error || !user) {
+              res.json([{
+              "Pesan": "Username atau password salah"
+              }]);
+            } else {
+              res.json([{
+                "Pesan": "sukses"
+              }]);
+            }
+          });  
+      }
+    });
+  } else {
+    var err = new Error('All fields required.');
+    err.status = 400;
+    return next(err);
+  }
+});
 router.get("/data",function (req,res,next) {
   console.log(req.query.topic)
   var topic = req.query.topic;
@@ -52,7 +86,8 @@ router.get('/mqtt',function(req,res,next) {
       }
     }
   }]);
-})
+});
+
 router.post('/webhook', (req, res) => {
   console.log(req.body);
   console.log("Alat :",req.body.queryResult.parameters.alat);
