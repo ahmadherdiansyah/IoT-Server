@@ -48,8 +48,7 @@ router.post('/create', function(req, res, next) {
                 // return next(error);
                 res.send(error);
             } else {
-                req.session.userId = user._id;
-                return res.redirect('/users');
+                return res.redirect('/user-management');
             }
         });
     }else {
