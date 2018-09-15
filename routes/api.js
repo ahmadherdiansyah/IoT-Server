@@ -156,12 +156,12 @@ router.post('/webhook', (req, res) => {
   })
   if (alat == "lampu") {
     if (aksi == "mati") {
-      client.publish('6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "+nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
+      client.publish('+/6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "+nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
       respon = alat +" " + nomor + " sudah "+ aksi;
       ga(respon);
     }
     if (aksi == "nyala") {
-      client.publish('6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "+nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
+      client.publish('+/6729402421014536/generic_brand_810/generic_device/v1/sub', "{\"action\""+aksi +" "+nomor +"\":,\"param\":{\"mac\":\"6729402421014536\"}\"}");
       respon = alat +" " + nomor + " sudah "+ aksi;
       ga(respon);
     } 
