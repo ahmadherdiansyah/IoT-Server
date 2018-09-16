@@ -6,28 +6,6 @@ var client = mqtt.connect({ port: 1883, host: 'mqtt.flexiot.xl.co.id', keepalive
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.post('/publish',function(req,res,next) {
-  if (req.body.topic && req.body.pesan) {
-    client.publish(req.body.topic, req.body.pesan,function (err){
-      if (err) {
-        res.send(err);
-      }
-      else{
-        res.json([{
-          "status": "sukses",
-          "topic": req.body.topic,
-          "pesan": req.body.pesan
-        }]);
-      }
-    }); 
-  }else{
-    res.status(400);
-    res.json([{
-      "status": "Errors 400",
-      "pesan": "Semua atribut harus di isi"
-    }]);
-  }
-});
 router.get('/publish',function(req,res,next) {
   var top = req.query.topic ;
   var event = req.query.event;
@@ -43,7 +21,34 @@ router.get('/publish',function(req,res,next) {
         res.json([{
           "status": "sukses",
           "topic": req.body.topic,
-          "pesan": req.body.pesan
+          "pesan": req.body.pesan 
+        }]);
+      }
+    }); 
+  }else{
+    res.status(400);
+    res.json([{
+      "status": "Errors 400",
+      "pesan": "Semua atribut harus di isi"
+    }]);
+  }
+});
+router.post('/publish',function(req,res,next) {
+  var top = req.body.topic ;
+  var event = req.body.event;
+  var pesan = req.body.pesan;
+  var mac = req.body.mac;
+  if (top && event && pesan && mac ) {
+    var all = "{\"eventName\":\""+event+"\","+pesan+",\"mac\":\""+mac+"\"}";
+    client.publish(top, all,function (err){
+      if (err) {
+        res.send(err);
+      }
+      else{
+        res.json([{
+          "status": "sukses",
+          "topic": req.body.topic,
+          "pesan": req.body.pesan 
         }]);
       }
     }); 
