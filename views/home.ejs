@@ -39,7 +39,7 @@
               <span class="info-box-text">Suhu</span>
               <span class="info-box-number" id="suhu">31°</span>
               <div class="progress" style="background-color:#fff">
-                <div class="progress-bar bg-red" style="width:75%"></div>
+                <div class="progress-bar bg-red" id="suhuBar" style="width:75%"></div>
               </div>
             </div>
             <!-- /.info-box-content -->
@@ -53,7 +53,7 @@
               <span class="info-box-text">Kelembaban</span>
               <span class="info-box-number" id="kelembaban">25%</span>
               <div class="progress" style="background-color:#fff">
-                <div class="progress-bar bg-blue" style="width: 25%"></div>
+                <div class="progress-bar bg-blue" id="kelembabanbar" style="width: 25%"></div>
               </div>
             </div>
             <!-- /.info-box-content -->
@@ -187,19 +187,32 @@ function adddata(){
             limit : "1"
           },
           success: function(data) {
-            console.log(data);
+            var Message;
+            var newMessage;
+            var newMessage1;
+            var Messages;
+            var bar;
               for(var i in data) {
-                var Message = data[0].message;
-                var newMessage = Message.replace(',{',',');
-                var newMessage1 = newMessage.replace('},', ',');
-                var Messages = JSON.parse(newMessage1);
+                Message = data[0].message;
+                newMessage = Message.replace(',{',',');
+                newMessage1 = newMessage.replace('},', ',');
+                Messages = JSON.parse(newMessage1);
                 myLineChart.data.labels.push(data[i].date);
                 myLineChart.data.labels.splice(0, 1);
                 myLineChart.data.datasets[0].data.splice(0, 1);
-                console.log(myLineChart.data.datasets[0].data);
-                myLineChart.data.datasets[0].data.push(Messages.dht11);
-                $("#suhu").text(Messages.dht11+"°C");
+                myLineChart.data.datasets[0].data.push(Messages.suhu);
+                $("#suhu").text(Messages.suhu+"°C");
                 myLineChart.update();
+                bar = parseInt(Messages.suhu);
+                if(bar < 25 ){
+                  $('#suhuBar').width('50%').removeClass('bg-red bg-yellow').addClass('bg-blue');
+                } else if(bar >= 25) {
+                  $('#suhuBar').width('65%').removeClass('bg-blue bg-red').addClass('bg-yellow');
+                } else if(bar > 29) {
+                  $('#suhuBar').width('80%').removeClass('bg-blue bg-yellow').addClass('bg-red');
+                } else if(bar > 34) {
+                  $('#suhuBar').width('90%').removeClass('bg-yellow bg-blue').addClass('bg-red');
+                }
               }
           },
           error: function(data) {
@@ -210,16 +223,35 @@ function adddata(){
           url: "/api/data",
           method: "POST",
           data : {
-            topic : "/sensor/kelembaban",
+            topic : "generic_brand_810/generic_device/v1/common",
             limit : "1"
           },
           success: function(data) {
             console.log(data);
+            var Message;
+            var newMessage;
+            var newMessage1;
+            var Messages;
+            var bar;
               for(var i in data) {
+                Message = data[0].message;
+                newMessage = Message.replace(',{',',');
+                newMessage1 = newMessage.replace('},', ',');
+                Messages = JSON.parse(newMessage1);
                 myLineChart.data.datasets[1].data.splice(0, 1);
-                myLineChart.data.datasets[1].data.push(data[i].message); 
-                $("#kelembaban").text(data[i].message+"%");
+                myLineChart.data.datasets[1].data.push(Messages.kelembaban); 
+                $("#kelembaban").text(Messages.kelembaban+"%");
                 myLineChart.update();
+                bar = parseInt(Messages.kelembaban);
+                if(bar <= 25 ){
+                  $('#kelembabanbar').width('25%').removeClass('bg-red bg-yellow bg-green').addClass('bg-blue');
+                } else if(bar <= 50) {
+                  $('#kelembabanbar').width('50%').removeClass('bg-blue bg-red bg-yellow').addClass('bg-green');
+                } else if(bar <= 75) {
+                  $('#kelembabanbar').width('75%').removeClass('bg-blue bg-yellow bg-green').addClass('bg-yellow');
+                } else if(bar <= 100) {
+                  $('#kelembabanbar').width('100%').removeClass('bg-yellow bg-blue bg-green').addClass('bg-red');
+                }
               }
           },
           error: function(data) {
