@@ -24,6 +24,10 @@ const proxy = require('express-http-proxy');
 
 const app = express();
 
+if (!process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET environment variable is required. Copy .env.example to .env and set a value.');
+}
+
 mongoose.connect(process.env.MONGO_URI);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -33,7 +37,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(hidePoweredBy({ setTo: 'X-Force' }));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'fallback-dev-secret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
