@@ -4,14 +4,15 @@ services:
     ports:
       - "3000:8080"
     environment:
-      # Internal MongoDB — overrides .env MONGO_URI for container networking
+      # Internal services — override .env values for container networking
       MONGO_URI: mongodb://mongo:27017/mqtt
-      # Read from .env file on the host
+      MQTT_HOST: emqx
       SESSION_SECRET: ${SESSION_SECRET}
-      MQTT_HOST: ${MQTT_HOST}
       PORT: 8080
     depends_on:
       mongo:
+        condition: service_healthy
+      emqx:
         condition: service_healthy
     restart: unless-stopped
 
@@ -26,5 +27,20 @@ services:
       retries: 5
     restart: unless-stopped
 
+  emqx:
+    image: emqx/emqx:5.8
+    ports:
+      - "1883:1883"    # MQTT
+      - "18083:18083"  # Dashboard (admin: admin / public)
+    volumes:
+      - emqx_data:/opt/emqx/data
+    healthcheck:
+      test: ["CMD", "emqx", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
 volumes:
   mongo_data:
+  emqx_data:
