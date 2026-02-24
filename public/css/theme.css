@@ -72,6 +72,7 @@ body::before {
   min-height: 100vh;
   background: rgba(10, 15, 30, 0.95);
   border-right: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   position: fixed;
   top: 0; left: 0;
@@ -209,6 +210,7 @@ body::before {
   height: var(--header-height);
   background: rgba(10, 15, 30, 0.8);
   border-bottom: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
@@ -306,6 +308,7 @@ body::before {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   padding: 20px;
   transition: var(--transition);
@@ -399,6 +402,7 @@ body::before {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   padding: 20px;
 }
@@ -526,6 +530,7 @@ input:checked + .toggle-slider:before {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   padding: 24px;
 }
@@ -720,6 +725,7 @@ input:checked + .toggle-slider:before {
   background: rgba(13, 20, 36, 0.95);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
@@ -776,6 +782,7 @@ input:checked + .toggle-slider:before {
   background: rgba(13, 20, 36, 0.9);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   padding: 36px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
