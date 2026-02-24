@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var MqttSchema = new mongoose.Schema({
+const MqttSchema = new mongoose.Schema({
   topic: {
     type: String,
     required: true,
@@ -12,8 +12,8 @@ var MqttSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true,
-  }
-});
-var Mqtt_data = mongoose.model('Mqtt_data', MqttSchema);
-module.exports = Mqtt_data;
+  },
+}, { timestamps: true });
 
+const MqttData = mongoose.model('Mqtt_data', MqttSchema);
+module.exports = MqttData;
