@@ -1,49 +1,52 @@
 <aside class="main-sidebar">
-  <!-- sidebar: style can be found in sidebar.less -->
-<section class="sidebar">
-  <!-- Sidebar user panel -->
-  <div class="user-panel">
-    <div class="pull-left image">
-      <img src="/img/user-male-icon.png" class="img-circle" alt="User Image">
-    </div>
-    <div class="pull-left info">
-      <p><%= data.username %></p>
-      <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+  <a href="/users" class="sidebar-brand">
+    <div class="sidebar-brand-icon">🏠</div>
+    <div class="sidebar-brand-text">Smart<span>Home</span></div>
+  </a>
+  <div class="sidebar-user">
+    <div class="sidebar-user-avatar">👤</div>
+    <div class="sidebar-user-info">
+      <div class="name"><%= data.username %></div>
+      <div class="status">● Online</div>
     </div>
   </div>
-  <!-- sidebar menu: : style can be found in sidebar.less -->
-  <ul class="sidebar-menu" data-widget="tree">
-    <li class="header">MAIN NAVIGATION</li>
-    <li class="active">
+  <ul class="sidebar-nav">
+    <li class="nav-header">Main Navigation</li>
+    <li class="<%= typeof activePage !== 'undefined' && activePage === 'dashboard' ? 'active' : '' %>">
       <a href="/users">
-        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        <i class="fa fa-tachometer-alt nav-icon"></i>
+        <span>Dashboard</span>
       </a>
     </li>
-    <li>
+    <li class="<%= typeof activePage !== 'undefined' && activePage === 'sensors' ? 'active' : '' %>">
       <a href="/sensors">
-        <i class="fa fa-lightbulb-o"></i> <span>Sensors</span>
+        <i class="fa fa-microchip nav-icon"></i>
+        <span>Sensors</span>
       </a>
     </li>
-    <li>
+    <li class="<%= typeof activePage !== 'undefined' && activePage === 'controls' ? 'active' : '' %>">
       <a href="/controls">
-        <i class="fa fa-power-off"></i> <span>Controls</span>
+        <i class="fa fa-sliders-h nav-icon"></i>
+        <span>Controls</span>
       </a>
     </li>
-    <li>
+    <li class="<%= typeof activePage !== 'undefined' && activePage === 'cctv' ? 'active' : '' %>">
       <a href="/cctv">
-        <i class="fa fa-camera"></i> <span>CCTV</span>
+        <i class="fa fa-video nav-icon"></i>
+        <span>CCTV</span>
       </a>
     </li>
-    <li>
+    <li class="<%= typeof activePage !== 'undefined' && activePage === 'users' ? 'active' : '' %>">
       <a href="/user-management">
-        <i class="fa fa-users"></i> <span>User Management</span>
+        <i class="fa fa-users nav-icon"></i>
+        <span>User Management</span>
       </a>
     </li>
-    <li>
+    <li class="logout-item">
       <a href="/login/logout">
-        <i class="fa fa-sign-out"></i> <span>Logout</span>
+        <i class="fa fa-sign-out-alt nav-icon"></i>
+        <span>Logout</span>
       </a>
     </li>
-</section>
-<!-- /.sidebar -->
+  </ul>
 </aside>

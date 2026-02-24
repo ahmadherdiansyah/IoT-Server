@@ -1,4 +1,15 @@
 <script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/adminlte.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/Chart.bundle.min.js"></script>
+<script>
+  // Sidebar toggle for mobile
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.getElementById('sidebarToggle');
+    const sidebar = document.querySelector('.main-sidebar');
+    if (toggle && sidebar) {
+      toggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+      });
+    }
+  });
+</script>
