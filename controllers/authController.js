@@ -56,7 +56,11 @@ async function createAdmin(req, res, next) {
     req.session.userId = user._id;
     return res.redirect('/users');
   } catch (err) {
-    res.render('admin_create', { title: 'Admin Setup', data: err.message });
+    // Show duplicate username error inline; forward other errors to error handler
+    if (err.code === 11000) {
+      return res.render('admin_create', { title: 'Admin Setup', data: 'Username already exists.' });
+    }
+    next(err);
   }
 }
 

@@ -17,7 +17,7 @@ async function getData(req, res, next) {
   try {
     const params = req.method === 'GET' ? req.query : req.body;
     const { topic } = params;
-    const limit = parseInt(params.limit) || 10;
+    const limit = Math.min(parseInt(params.limit, 10) || 10, 100);
 
     if (!topic) return res.json({ data: [] });
 
