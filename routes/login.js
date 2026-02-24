@@ -27,13 +27,17 @@ router.post('/',
       return res.render('index', { title: 'Login', data: errors.array()[0].msg });
     }
     try {
-      User.authenticate(req.body.username, req.body.password, (err, user) => {
-        if (err || !user) {
-          return res.render('index', { title: 'Login', data: 'Username atau password salah!' });
-        }
-        req.session.userId = user._id;
-        return res.redirect('/users');
+      const user = await new Promise((resolve, reject) => {
+        User.authenticate(req.body.username, req.body.password, (err, user) => {
+          if (err) return reject(err);
+          resolve(user);
+        });
       });
+      if (!user) {
+        return res.render('index', { title: 'Login', data: 'Username atau password salah!' });
+      }
+      req.session.userId = user._id;
+      return res.redirect('/users');
     } catch (err) {
       next(err);
     }

@@ -43,12 +43,16 @@ router.post('/login', async (req, res, next) => {
     return res.status(400).json({ message: 'All fields required' });
   }
   try {
-    User.authenticate(req.body.username, req.body.password, (err, user) => {
-      if (err || !user) {
-        return res.json([{ Pesan: 'Username atau password salah' }]);
-      }
-      res.json([{ Pesan: 'sukses' }]);
+    const user = await new Promise((resolve, reject) => {
+      User.authenticate(req.body.username, req.body.password, (err, user) => {
+        if (err) return reject(err);
+        resolve(user);
+      });
     });
+    if (!user) {
+      return res.json([{ Pesan: 'Username atau password salah' }]);
+    }
+    res.json([{ Pesan: 'sukses' }]);
   } catch (err) {
     next(err);
   }
