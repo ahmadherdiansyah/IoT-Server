@@ -19,7 +19,7 @@
     "express-session": "^1.15.6",
     "hide-powered-by": "^1.0.0",
     "http-errors": "~1.6.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "mqtt": "^2.18.8",
