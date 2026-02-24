@@ -1,7 +1,6 @@
-var express = require('express');
-//var jquery = require('jquery');
-//var bootstrap = require('bootstrap');
-var router = express.Router();
+const express = require('express');
+
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
