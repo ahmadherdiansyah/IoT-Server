@@ -1,11 +1,10 @@
 // controllers/authController.js
 const { validationResult } = require('express-validator');
-const User = require('../models/user');
 const userService = require('../services/userService');
 
 async function showLogin(req, res, next) {
   try {
-    const admin = await User.findOne({ username: 'admin' });
+    const admin = await userService.findByUsername('admin');
     if (!admin) {
       return res.render('admin_create', { title: 'Admin Setup', data: 'clean' });
     }

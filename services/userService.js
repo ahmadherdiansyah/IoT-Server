@@ -21,4 +21,8 @@ async function deleteById(id) {
   return User.findByIdAndDelete(id);
 }
 
-module.exports = { authenticate, findById, findAll, create, deleteById };
+async function findByUsername(username) {
+  return User.findOne({ username });
+}
+
+module.exports = { authenticate, findById, findAll, findByUsername, create, deleteById };

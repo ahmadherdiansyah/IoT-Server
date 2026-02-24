@@ -25,6 +25,8 @@ async function publish(req, res, next) {
 async function subscribe(req, res, next) {
   const { topic, authtoken, pesan } = req.body;
 
+  // NOTE: authtoken presence is checked but not validated against any stored value.
+  // This matches the original behaviour. True token validation is a future improvement.
   if (!topic || !authtoken) {
     return res.status(400).json({ error: 'topic and authtoken required' });
   }

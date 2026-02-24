@@ -23,7 +23,7 @@ async function getData(req, res, next) {
 
     const results = await MqttData.find({ topic })
       .limit(limit)
-      .sort({ timestamp: -1 });
+      .sort({ createdAt: -1 });
 
     res.json({ data: results });
   } catch (err) {
