@@ -9,9 +9,7 @@ const session = require('express-session');
 const { MongoStore } = require('connect-mongo');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const hidePoweredBy = require('hide-powered-by');
 
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api');
 const mqttapi = require('./routes/mqttapi');
@@ -28,13 +26,17 @@ if (!process.env.SESSION_SECRET) {
   throw new Error('SESSION_SECRET environment variable is required. Copy .env.example to .env and set a value.');
 }
 
+if (!process.env.MONGO_URI) {
+  throw new Error('MONGO_URI environment variable is required.');
+}
+
 mongoose.connect(process.env.MONGO_URI);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => console.log('MongoDB connected'));
 
+// CSP disabled temporarily until EJS templates are updated (Task 6)
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(hidePoweredBy({ setTo: 'X-Force' }));
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -58,7 +60,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', login);
+app.use('/', loginLimiter, login);
 app.use('/login', loginLimiter, login);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
