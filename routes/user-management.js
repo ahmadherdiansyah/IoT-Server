@@ -1,61 +1,52 @@
-var express = require('express');
-var User = require('../models/user');
-var router = express.Router();
-router.get('/', function(req, res, next) {
-  User.findById(req.session.userId)
-      .exec(function (error, user) {
-        if (error) {
-          return next(error);
-        } else {
-          if (user === null) {
-            var err = new Error('Not authorized! Go back!');
-            err.status = 400;
-            return next(err);
-          } else {
-            User.find({}, function( err, count){
-                console.log( "Number of users:", count );
-            return res.render('user-management',{data : user,semua : count});
-            })
-          }
-        }
-      });
+const express = require('express');
+const { body, validationResult } = require('express-validator');
+const User = require('../models/user');
+const requireAuth = require('../middleware/auth');
+
+const router = express.Router();
+
+router.get('/', requireAuth, async (req, res, next) => {
+  try {
+    const users = await User.find({});
+    res.render('user-management', { data: req.user, semua: users });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.post('/create', function(req, res, next) {
-    var card;
-    var mac;
-    if (req.body.username && req.body.password) {
-        if(req.body.cardkey != null){
-            card = req.body.cardkey;
-        } else {
-            card = 'Not Registered';
-        }
-        if(req.body.mac != null) {
-            mac = req.body.mac;
-        } else {
-            mac = 'Not Registered';
-        }
-        var userData = {
+router.post('/create', requireAuth,
+  body('username').trim().notEmpty().withMessage('Username required'),
+  body('password').notEmpty().withMessage('Password required'),
+  body('name').trim().notEmpty().withMessage('Name required'),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.redirect('/user-management');
+    }
+    try {
+      const userData = {
         name: req.body.name,
         username: req.body.username,
         password: req.body.password,
-        is_superuser: req.body.superuser,
-        card: card,
-        mac: mac,
+        is_superuser: req.body.superuser === 'true',
+        card: req.body.cardkey || '-',
+        mac: req.body.mac || '-',
+      };
+      await User.create(userData);
+      res.redirect('/user-management');
+    } catch (err) {
+      next(err);
     }
-        User.create(userData, function (error, user) {
-            if (error) {
-                // return next(error);
-                res.send(error);
-            } else {
-                return res.redirect('/user-management');
-            }
-        });
-    }else {
-        var err = new Error('All fields required.');
-        err.status = 400;
-        return next(err);
-    }
+  }
+);
+
+router.post('/delete/:id', requireAuth, async (req, res, next) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.redirect('/user-management');
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
