@@ -1,55 +1,41 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/css/adminlte.min.css' />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <link rel="stylesheet" href="/css/skins/_all-skins.min.css" />
-    <link rel="stylesheet" href="/css/ionicons.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-  </head>
-  <body class="hold-transition login-page bg-green">
-  <div class="login-box">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — Smart Home Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/theme.css">
+</head>
+<body class="login-page">
+  <div class="login-card">
     <div class="login-logo">
-      <a href=""><b>SH</b>Panel</a>
+      <div class="login-logo-icon">🏠</div>
+      <h1 class="login-title">Smart Home Panel</h1>
+      <p class="login-subtitle">Sign in to your account</p>
     </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Login untuk memulai</p>
-      <form action="login" method="post">
-        <div class="form-group has-feedback">
-          <input type="text" class="form-control" name="username" placeholder="Username">
-          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-          <input type="password" class="form-control" name="password" placeholder="Password">
-          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        </div>
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-xs-12">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-      <% if(data == "clean"){}else{ %>
-      <br>
-      <div class="alert alert-danger">
-        <strong><%= data %></strong>
+    <form action="/login" method="post">
+      <div class="mb-3">
+        <label class="form-label-glass">Username</label>
+        <input type="text" class="form-control-glass" name="username" placeholder="Enter your username" required autocomplete="username">
       </div>
-      <% } %>
+      <div class="mb-3">
+        <label class="form-label-glass">Password</label>
+        <input type="password" class="form-control-glass" name="password" placeholder="Enter your password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="login-btn">
+        <i class="fa fa-sign-in-alt me-2"></i>Sign In
+      </button>
+    </form>
+    <% if(data !== 'clean') { %>
+    <div class="alert-glass mt-3">
+      <i class="fa fa-exclamation-circle me-2"></i><%= data %>
     </div>
-    <!-- /.login-box-body -->
+    <% } %>
   </div>
-  <!-- /.login-box -->
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/adminlte.min.js"></script>
-  </body>
-  </html>
-  
+  <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

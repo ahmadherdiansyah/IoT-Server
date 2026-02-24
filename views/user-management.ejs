@@ -1,235 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% include partials/head %>
+  <% include partials/head %>
 </head>
-<body class="hold-transition skin-green sidebar-mini">
+<body>
 <div class="wrapper">
+  <% include partials/sidebar %>
+  <div class="content-area">
     <% include partials/header %>
-    
-    <% include partials/sidebar %>
+    <main class="page-content">
+      <div class="breadcrumb-area">
+        <h1>User Management</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/users">Home</a></li>
+            <li class="breadcrumb-item active">User Management</li>
+          </ol>
+        </nav>
+      </div>
 
-    <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-              User Management
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/users"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active"><a href="#"><i class="fa fa-users"></i> User Management</a></li>
-            </ol>
-        </section>
-        <div class="content">
-            <div class="box box-solid no-border box-success">
-                <div class="box-header">
-                    <h4 class="box-title">
-                        User List
-                    </h4>
-                    <div class="pull-right">
-                        <button class="btn btn-default bg-green" data-toggle="modal" data-target="#addUser">Add User</button>
-                    </div>
-                </div>
-                <div class="box-body no-padding">
-                    <table class="table table-striped table-bordered table-condensed">
-                        <tr>
-                            <th width="2%" class="text-center">Id</th>
-                            <th width="20%">Nama User</th>
-                            <th width="20%">Username</th>
-                            <th width="20%" class="text-center">Status ID Card</th>
-                            <th width="10%" class="text-center">Mac</th>
-                            <th width="20%" class="text-center">Action</th>
-                        </tr>
-                        <% 
-                        console.log(data);
-                        for(var i in semua){
-                        %>
-                        <tr>
-                            <td class="text-center" style="vertical-align:middle"><%= semua[i].id %></td>
-                            <td style="vertical-align:middle"><%= semua[i].name %></td>
-                            <td style="vertical-align:middle"><%= semua[i].username %></td>
-                            <td class="text-center" style="vertical-align:middle">
-                            <% if(semua[i].card == '-') { %>
-                                Not Registered
-                            <% } else { %>
-                                Registered
-                            <% } %> </td>
-                            <td class="text-center" style="vertical-align:middle">
-                            <% if(semua[i].mac == '-') { %>
-                                Not Registered
-                            <% } else { %>
-                                Registered
-                            <% } %> </td>
-                            <td class="text-center" style="vertical-align:middle">
-                                <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#model<%= semua[i].id %>"><i class="fa fa-table"></i> Detail</button>
-                                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#edit<%= semua[i].id %>"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                                <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                            </td>
-                        </tr>        
-                        
-                        <!-- Modal -->
-                        <div class="modal fade" id="edit<%= semua[i].id %>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                                        <h4 class="modal-title" id="modelTitleId">Edit User <%= semua[i].name %></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <form action="/edit">
-                                                <div class="row">
-                                                    <div class="col-xs-6">
-                                                        <div class="form-group">
-                                                            <label for="name">Name</label>
-                                                            <input type="text" name="name" id="name" class="form-control" value="<%= semua[i].name %>" placeholder="User Name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="username">Username</label>
-                                                            <input type="text" name="username" id="username" class="form-control" value="<%= semua[i].username %>" placeholder="Username">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="password">Password</label>
-                                                            <input type="text" name="password" id="password" class="form-control" placeholder="Password">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="cardkey">Card Key</label>
-                                                            <input type="text" name="cardkey" id="cardkey" class="form-control" value="
-                                                            <% if(semua[i].card == '-') { %>
-                                                                Waiting for Card scan... 
-                                                            <% } else { %>
-                                                                <%= semua[i].card %>
-                                                            <% } %>
-                                                            " placeholder="Waiting for Card scan..." readonly>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="MAC">MAC Address</label>
-                                                            <input type="text" name="mac" id="MAC" class="form-control" value="
-                                                            <% if(semua[i].mac == '-') { %>
-                                                                Waiting for Card scan... 
-                                                            <% } else { %>
-                                                                <%= semua[i].card %>
-                                                            <% } %>
-                                                            " placeholder="AA:BB:DD:CC:EE:FF">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-6">
-                                                        <img src="img/RFD_02-512.png" width="100%" alt="RFID">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input type="submit" class="btn btn-primary" value="Submit">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <script>
-                            $('#exampleModal').on('show.bs.modal', event => {
-                                var button = $(event.relatedTarget);
-                                var modal = $(this);
-                                // Use above variables to manipulate the DOM
-                                
-                            });
-                        </script>                
-                        <!-- Modal -->
-                        <div class="modal fade" id="model<%= semua[i].id %>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                            <div class="modal-dialog modal-sm" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                                        <h4 class="modal-title" id="modelTitleId">Detail User <%= semua[i].name %></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label>Username :</label>
-                                            <%= semua[i].username %>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Card Key Status</label>
-                                            <% if(semua[i].card == '-') { %>
-                                                Not Registered
-                                            <% } else { %>
-                                                Registered
-                                            <% } %> 
-                                        </div>
-                                        <div class="form-group">
-                                            <label>MAC Address</label>
-                                            <% if(semua[i].mac == '-') { %>
-                                                Not Registered
-                                            <% } else { %>
-                                                Registered
-                                            <% } %> 
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <% }%>
-                    </table>
-                </div>
-            </div>
+      <div class="glass-card p-0">
+        <div class="d-flex align-items-center justify-content-between p-3" style="border-bottom: 1px solid var(--glass-border);">
+          <div style="font-size:15px;font-weight:600;color:var(--text-primary);">
+            <i class="fa fa-users me-2" style="color:var(--accent-cyan)"></i>Users
+            <span style="font-size:12px;color:var(--text-muted);margin-left:8px;">(<%= semua.length %> total)</span>
+          </div>
+          <button class="btn-glass btn-glass-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <i class="fa fa-plus"></i> Add User
+          </button>
         </div>
-    </div>
+        <div class="table-responsive">
+          <table class="glass-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th class="text-center">Card</th>
+                <th class="text-center">MAC</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let i = 0; i < semua.length; i++) { const u = semua[i]; %>
+              <tr>
+                <td style="color:var(--text-muted)"><%= i + 1 %></td>
+                <td style="font-weight:500"><%= u.name %></td>
+                <td><code style="color:var(--accent-cyan);background:var(--accent-cyan-dim);padding:2px 6px;border-radius:4px;font-size:12px;"><%= u.username %></code></td>
+                <td class="text-center">
+                  <% if(u.card && u.card !== '-' && u.card !== 'Not Registered') { %>
+                    <span class="badge-registered">Registered</span>
+                  <% } else { %>
+                    <span class="badge-not-registered">Not Registered</span>
+                  <% } %>
+                </td>
+                <td class="text-center">
+                  <% if(u.mac && u.mac !== '-' && u.mac !== 'Not Registered') { %>
+                    <span class="badge-registered">Registered</span>
+                  <% } else { %>
+                    <span class="badge-not-registered">Not Registered</span>
+                  <% } %>
+                </td>
+                <td class="text-center">
+                  <button class="btn-glass" data-bs-toggle="modal" data-bs-target="#detailModal<%= u._id %>" title="Detail">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <form action="/user-management/delete/<%= u._id %>" method="POST" style="display:inline;"
+                        onsubmit="return confirm('Delete user <%= u.username %>?')">
+                    <button type="submit" class="btn-glass btn-glass-danger" title="Delete">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+              <!-- Detail Modal -->
+              <div class="modal fade modal-glass" id="detailModal<%= u._id %>" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">User Detail</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="mb-2">
+                        <span class="form-label-glass d-block">Username</span>
+                        <code style="color:var(--accent-cyan)"><%= u.username %></code>
+                      </div>
+                      <div class="mb-2">
+                        <span class="form-label-glass d-block">Name</span>
+                        <span style="color:var(--text-primary)"><%= u.name %></span>
+                      </div>
+                      <div class="mb-2">
+                        <span class="form-label-glass d-block">Card Key</span>
+                        <span class="<%= (u.card && u.card !== '-') ? 'badge-registered' : 'badge-not-registered' %>">
+                          <%= (u.card && u.card !== '-') ? 'Registered' : 'Not Registered' %>
+                        </span>
+                      </div>
+                      <div class="mb-2">
+                        <span class="form-label-glass d-block">MAC Address</span>
+                        <span class="<%= (u.mac && u.mac !== '-') ? 'badge-registered' : 'badge-not-registered' %>">
+                          <%= (u.mac && u.mac !== '-') ? 'Registered' : 'Not Registered' %>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn-glass" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
     <% include partials/footer %>
+  </div>
+</div>
 
-    
-<!-- Modal -->
-<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-green">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                <h4 class="modal-title" id="modelTitleId">Add User</h4>
+<!-- Add User Modal -->
+<div class="modal fade modal-glass" id="addUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fa fa-user-plus me-2" style="color:var(--accent-cyan)"></i>Add New User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="/user-management/create" method="POST">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label-glass">Full Name</label>
+            <input type="text" name="name" class="form-control-glass" placeholder="John Doe" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label-glass">Username</label>
+            <input type="text" name="username" class="form-control-glass" placeholder="johndoe" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label-glass">Password</label>
+            <input type="password" name="password" class="form-control-glass" placeholder="Password" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label-glass">Role</label>
+            <div style="display:flex;gap:16px;margin-top:6px;">
+              <label style="color:var(--text-dim);font-size:13px;cursor:pointer;">
+                <input type="radio" name="superuser" value="true" style="accent-color:var(--accent-cyan);margin-right:6px;">
+                Superuser
+              </label>
+              <label style="color:var(--text-dim);font-size:13px;cursor:pointer;">
+                <input type="radio" name="superuser" value="false" checked style="accent-color:var(--accent-cyan);margin-right:6px;">
+                User
+              </label>
             </div>
-            <div class="modal-body">
-                <form action="/user-management/create" method="POST">
-                    <div class="form-group">
-                        <label for="name">Nama User</label>
-                        <input type="text" name="name" id="name" class="form-control input-lg" placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control input-lg" placeholder="johndoe">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="text" name="password" id="password" class="form-control input-lg" placeholder="password">
-                    </div>
-                    <div class="form-group">
-                        <input type="radio" name="superuser" id="superuser" value="true">
-                        <label for="superuser">Superuser</label>
-                        <input type="radio" name="superuser" id="user" value="false">
-                        <label for="user">User</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="cardkey">Card Key (Optional)</label>
-                        <input type="text" name="cardkey" id="cardkey" class="form-control input-lg" placeholder="0x20; 0xb2; 0xfb; 0x73; 20b2fb73">
-                    </div>
-                    <div class="form-group">
-                        <label for="mac">MAC Address (Optional)</label>
-                        <input type="text" name="mac" id="mac" class="form-control input-lg" placeholder="AA:BB:CC:DD:EE:FF">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary" value="Save">
-                </div>
-            </form>
+          </div>
+          <div class="mb-3">
+            <label class="form-label-glass">Card Key (Optional)</label>
+            <input type="text" name="cardkey" class="form-control-glass" placeholder="RFID card key">
+          </div>
+          <div class="mb-3">
+            <label class="form-label-glass">MAC Address (Optional)</label>
+            <input type="text" name="mac" class="form-control-glass" placeholder="AA:BB:CC:DD:EE:FF">
+          </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-glass" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn-glass btn-glass-primary">
+            <i class="fa fa-save me-1"></i>Save User
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-</div>
-    <% include partials/script %>
+
+<% include partials/script %>
 </body>
 </html>

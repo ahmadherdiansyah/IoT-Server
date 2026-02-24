@@ -1,134 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <% include partials/head %>
+  <% include partials/head %>
 </head>
-<body class="hold-transition skin-green sidebar-mini">
-<!-- Site wrapper -->
+<body>
 <div class="wrapper">
-  <% include partials/header %>
-  
-  
-    <% include partials/sidebar %>
-    
+  <% include partials/sidebar %>
+  <div class="content-area">
+    <% include partials/header %>
+    <main class="page-content">
+      <div class="breadcrumb-area">
+        <h1>Sensors</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/users">Home</a></li>
+            <li class="breadcrumb-item active">Sensors</li>
+          </ol>
+        </nav>
+      </div>
 
-  <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Sensors
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="/users"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="#"><i class="fa fa-lightbulb-o"></i> Sensors</a></li>
-      </ol>
-    </section>
-   <section class="content">
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="box box-solid no-border box-primary">
-          <div class="box-header">
-            <h3 class="box-title">Suhu</h3>
-          </div>
-          <div class="box-body">
-            <p>
-              Topic : /sensor/suhu<br>
-              <div class="row">
-                <div class="col-xs-2">
-                  Value : 
-                </div>
-                <div class="col-xs-10">
-                  <div class="progress">
-                    <div class="progress-bar bg-yellow" style="width: 75%">31°C</div>  
-                  </div>
-                </div>
+      <div class="row g-3">
+        <div class="col-lg-4 col-md-6">
+          <div class="sensor-card">
+            <div class="sensor-card-header">
+              <div class="metric-icon temp" style="width:40px;height:40px;">
+                <i class="fa fa-thermometer-half"></i>
               </div>
-            </p>
+              <div>
+                <div style="font-size:15px;font-weight:600;color:var(--text-primary)">Temperature</div>
+              </div>
+            </div>
+            <div class="sensor-topic">/sensor/suhu</div>
+            <div class="sensor-value-row">
+              <span class="sensor-value-label">Value:</span>
+              <div class="sensor-bar">
+                <div class="sensor-bar-fill temp" id="suhu-bar" style="width:0%"></div>
+              </div>
+              <span id="suhu" style="font-size:13px;font-weight:600;color:var(--accent-red);white-space:nowrap">--°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="sensor-card">
+            <div class="sensor-card-header">
+              <div class="metric-icon humidity" style="width:40px;height:40px;">
+                <i class="fa fa-tint"></i>
+              </div>
+              <div>
+                <div style="font-size:15px;font-weight:600;color:var(--text-primary)">Humidity</div>
+              </div>
+            </div>
+            <div class="sensor-topic">/sensor/kelembaban</div>
+            <div class="sensor-value-row">
+              <span class="sensor-value-label">Value:</span>
+              <div class="sensor-bar">
+                <div class="sensor-bar-fill humidity" id="kelembaban-bar" style="width:0%"></div>
+              </div>
+              <span id="kelembaban" style="font-size:13px;font-weight:600;color:var(--accent-cyan);white-space:nowrap">--%</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="sensor-card">
+            <div class="sensor-card-header">
+              <div class="metric-icon gas" style="width:40px;height:40px;">
+                <i class="fa fa-wind"></i>
+              </div>
+              <div>
+                <div style="font-size:15px;font-weight:600;color:var(--text-primary)">Gas Sensor</div>
+              </div>
+            </div>
+            <div class="sensor-topic">/sensor/gas</div>
+            <div class="sensor-value-row">
+              <span class="sensor-value-label">Value:</span>
+              <div class="sensor-bar">
+                <div class="sensor-bar-fill gas" id="gas-bar" style="width:0%"></div>
+              </div>
+              <span id="gas" style="font-size:13px;font-weight:600;color:var(--accent-orange);white-space:nowrap">--</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-          <div class="box box-solid no-border box-primary">
-            <div class="box-header">
-              <h3 class="box-title">Kelembaban</h3>
-            </div>
-            <div class="box-body">
-              <p>
-                Topic : /sensor/kelembaban<br>
-                <div class="row">
-                  <div class="col-xs-2">
-                    Value :
-                  </div>
-                  <div class="col-xs-10">
-                    <div class="progress">
-                      <div class="progress-bar bg-blue" style="width: 24%">24%</div>  
-                    </div>
-                  </div>
-                </div>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="box box-solid no-border box-primary">
-              <div class="box-header">
-                <h3 class="box-title">Kebocoran Gas</h3>
-              </div>
-              <div class="box-body">
-                <p>
-                  Topic : /sensor/gas<br>
-                  <div class="row">
-                    <div class="col-xs-2">
-                      Value : 
-                    </div>
-                    <div class="col-xs-10">
-                      <div class="progress">
-                        <div class="progress-bar bg-blue muted" style="width: 5%">5%</div>  
-                      </div>
-                    </div>
-                  </div>
-                </p>
-              </div>
-            </div>
-          </div>
-          
-    </div>
-    </section>
-  </div>
-  
+    </main>
     <% include partials/footer %>
-    
+  </div>
 </div>
-
-  <% include partials/script %>
-
+<% include partials/script %>
 <script>
-  $(document).ready(function () {
-    $('.sidebar-menu').tree();
-  });
-  function cekdata(datas){
+function cekdata(sensor) {
   $.ajax({
-          url: "/api/data",
-          method: "POST",
-          data : {
-            topic : "/sensor/"+datas,
-            limit: "1"
-          },
-          success: function(data) {
-            console.log(data);
-              for(var i in data) { 
-                $("#"+datas).text(data[i].message);
-              }
-          },
-          error: function(data) {
-            console.log(data);
-          }
-        });
-};
-setInterval(function(){
+    url: '/api/data',
+    method: 'POST',
+    data: { topic: '/sensor/' + sensor, limit: '1' },
+    success: function(data) {
+      if (!data || !data[0]) return;
+      const val = parseFloat(data[0].message);
+      if (sensor === 'suhu') {
+        $('#suhu').text(val + '°C');
+        $('#suhu-bar').css('width', Math.min((val / 50) * 100, 100) + '%');
+      } else if (sensor === 'kelembaban') {
+        $('#kelembaban').text(val + '%');
+        $('#kelembaban-bar').css('width', Math.min(val, 100) + '%');
+      } else if (sensor === 'gas') {
+        $('#gas').text(val);
+        $('#gas-bar').css('width', Math.min((val / 800) * 100, 100) + '%');
+      }
+    }
+  });
+}
+
+$(document).ready(function() {
   cekdata('suhu');
   cekdata('kelembaban');
   cekdata('gas');
-},3000);
+  setInterval(function() {
+    cekdata('suhu');
+    cekdata('kelembaban');
+    cekdata('gas');
+  }, 3000);
+});
 </script>
 </body>
 </html>

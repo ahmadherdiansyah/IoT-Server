@@ -1,334 +1,238 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <% include partials/head %>
-<body class="hold-transition skin-green sidebar-mini">
-<!-- Site wrapper -->
+</head>
+<body>
 <div class="wrapper">
-  <% include partials/header %>
+  <% include partials/sidebar %>
+  <div class="content-area">
+    <% include partials/header %>
+    <main class="page-content">
+      <div class="breadcrumb-area">
+        <h1>Dashboard</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+              <i class="fa fa-tachometer-alt me-1"></i>Home
+            </li>
+          </ol>
+        </nav>
+      </div>
 
-  <!-- =============================================== -->
-
-  <!-- Left side column. contains the sidebar -->
-  
-    <% include partials/sidebar %>
-    
-
-  <!-- =============================================== -->
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Dashboard
-      </h1>
-      <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-lg-4 col-sm-12">
-          <div class="info-box">
-            <!-- Apply any bg-* class to to the icon to color it -->
-            <span class="info-box-icon bg-red"><i class="fa fa-thermometer-empty"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Suhu</span>
-              <span class="info-box-number" id="suhu">31°</span>
-              <div class="progress" style="background-color:#fff">
-                <div class="progress-bar bg-red" id="suhuBar" style="width:75%"></div>
+      <!-- Metric Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="metric-card temp">
+            <div class="metric-card-header">
+              <div>
+                <div class="metric-label">Temperature</div>
+                <div style="font-size:11px; color: var(--text-muted); margin-top:2px;">
+                  <span class="metric-pulse"></span>Live
+                </div>
               </div>
+              <div class="metric-icon temp"><i class="fa fa-thermometer-half"></i></div>
             </div>
-            <!-- /.info-box-content -->
+            <div class="metric-value" id="suhu">--°C</div>
+            <div class="metric-bar">
+              <div class="metric-bar-fill temp" id="suhuBar" style="width: 0%"></div>
+            </div>
           </div>
         </div>
-        <div class="col-lg-4 col-sm-12">
-          <div class="info-box">
-            <!-- Apply any bg-* class to to the icon to color it -->
-            <span class="info-box-icon bg-blue"><i class="fa fa-tint"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Kelembaban</span>
-              <span class="info-box-number" id="kelembaban">25%</span>
-              <div class="progress" style="background-color:#fff">
-                <div class="progress-bar bg-blue" id="kelembabanbar" style="width: 25%"></div>
+        <div class="col-lg-4 col-md-6">
+          <div class="metric-card humidity">
+            <div class="metric-card-header">
+              <div>
+                <div class="metric-label">Humidity</div>
+                <div style="font-size:11px; color: var(--text-muted); margin-top:2px;">
+                  <span class="metric-pulse"></span>Live
+                </div>
               </div>
+              <div class="metric-icon humidity"><i class="fa fa-tint"></i></div>
             </div>
-            <!-- /.info-box-content -->
+            <div class="metric-value" id="kelembaban">--%</div>
+            <div class="metric-bar">
+              <div class="metric-bar-fill humidity" id="kelembabanbar" style="width: 0%"></div>
+            </div>
           </div>
         </div>
-        <div class="col-lg-4 col-sm-12">
-          <div class="info-box">
-            <!-- Apply any bg-* class to to the icon to color it -->
-            <span class="info-box-icon bg-grey"><i class="fa fa-fire"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">GAS</span>
-              <span class="info-box-number" id="asaps">10%</span>
-              <div class="progress" style="background-color: #fff">
-                <div class="progress-bar bg-gray" style="width: 10%"></div>
+        <div class="col-lg-4 col-md-6">
+          <div class="metric-card gas">
+            <div class="metric-card-header">
+              <div>
+                <div class="metric-label">Gas Sensor</div>
+                <div style="font-size:11px; color: var(--text-muted); margin-top:2px;">
+                  <span class="metric-pulse"></span>Live
+                </div>
               </div>
+              <div class="metric-icon gas"><i class="fa fa-wind"></i></div>
             </div>
-            <!-- /.info-box-content -->
+            <div class="metric-value" id="asaps">--</div>
+            <div class="metric-bar">
+              <div class="metric-bar-fill gas" id="gasBar" style="width: 0%"></div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
+
+      <!-- Charts -->
+      <div class="row g-3">
         <div class="col-lg-6">
-            <div class="box">
-              <div class="box-body">
-                  <canvas id="myChart1"></canvas>
-              </div>
-            </div>
-        </div> 
+          <div class="chart-card">
+            <div class="chart-card-title">Temperature &amp; Humidity</div>
+            <canvas id="myChart1" height="120"></canvas>
+          </div>
+        </div>
         <div class="col-lg-6">
-            <div class="box">
-              <div class="box-body">
-                  <canvas id="asap"></canvas>
-              </div>
-            </div>
+          <div class="chart-card">
+            <div class="chart-card-title">Gas Level</div>
+            <canvas id="asap" height="120"></canvas>
+          </div>
         </div>
       </div>
-    </section>
-  </div>
-  
+    </main>
     <% include partials/footer %>
-    
+  </div>
 </div>
-<!-- ./wrapper -->
 <% include partials/script %>
 <script>
-  $(document).ready(function () {
-    $('.sidebar-menu').tree()
-    var canvas = document.getElementById('myChart1');
-    var canvas1 = document.getElementById('asap');
-var data1 = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "Suhu",
-      fill: false,
-      lineTension: 0.0,
-      backgroundColor: "rgba(75,192,192,0.4)",
-      borderColor: "rgba(75,192,192,1)",
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
-      pointRadius: 5,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 0, 56, 55, 40],
+$(document).ready(function () {
+  const commonScaleConfig = {
+    ticks: { color: '#64748b', font: { size: 10 } },
+    grid: { color: 'rgba(255,255,255,0.04)' }
+  };
+  const emptyLabels = ['', '', '', '', '', '', ''];
+  const emptyData = [null, null, null, null, null, null, null];
+
+  const ctx1 = document.getElementById('myChart1').getContext('2d');
+  const ctx2 = document.getElementById('asap').getContext('2d');
+
+  const myLineChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: [...emptyLabels],
+      datasets: [
+        {
+          label: 'Temperature (°C)',
+          data: [...emptyData],
+          borderColor: 'rgba(239,68,68,0.9)',
+          backgroundColor: 'rgba(239,68,68,0.1)',
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: 'rgba(239,68,68,1)',
+          pointRadius: 3,
+        },
+        {
+          label: 'Humidity (%)',
+          data: [...emptyData],
+          borderColor: 'rgba(0,212,255,0.9)',
+          backgroundColor: 'rgba(0,212,255,0.1)',
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: 'rgba(0,212,255,1)',
+          pointRadius: 3,
+        }
+      ]
     },
-    {
-      label: "Kelembaban",
-      fill: false,
-      lineTension: 0.0,
-      backgroundColor: "rgba(43,87,151,0.4)",
-      borderColor: "rgba(43,87,151,1)",
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: "rgba(43,87,151,1)",
-      pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(43,87,151,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
-      pointRadius: 5,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 0, 56, 55, 40],
-    }
-  ]
-};
-var data2 = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "asap",
-      fill: false,
-      lineTension: 0.0,
-      backgroundColor: "rgba(75,192,192,0.4)",
-      borderColor: "rgba(75,192,192,1)",
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
-      pointRadius: 5,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 0, 56, 55, 40],
-    }
-  ]
-};
-
-var zero = 7;
-function adddata(){
-  $.ajax({
-          url: "/api/data",
-          method: "POST",
-          data : {
-            topic : "generic_brand_810/generic_device/v1/common",
-            limit : "1"
-          },
-          success: function(data) {
-            var Message;
-            var newMessage;
-            var newMessage1;
-            var Messages;
-            var bar;
-              for(var i in data) {
-                Message = data[0].message;
-                newMessage = Message.replace(',{',',');
-                newMessage1 = newMessage.replace('},', ',');
-                Messages = JSON.parse(newMessage1);
-                myLineChart.data.labels.push(data[i].date);
-                myLineChart.data.labels.splice(0, 1);
-                myLineChart.data.datasets[0].data.splice(0, 1);
-                myLineChart.data.datasets[0].data.push(Messages.suhu);
-                $("#suhu").text(Messages.suhu+"°C");
-                myLineChart.update();
-                bar = parseInt(Messages.suhu);
-                if(bar < 25 ){
-                  $('#suhuBar').width('50%').removeClass('bg-red bg-yellow').addClass('bg-blue');
-                } else if(bar >= 25) {
-                  $('#suhuBar').width('65%').removeClass('bg-blue bg-red').addClass('bg-yellow');
-                } else if(bar > 29) {
-                  $('#suhuBar').width('80%').removeClass('bg-blue bg-yellow').addClass('bg-red');
-                } else if(bar > 34) {
-                  $('#suhuBar').width('90%').removeClass('bg-yellow bg-blue').addClass('bg-red');
-                }
-              }
-          },
-          error: function(data) {
-            console.log(data);
-          }
-        });
-        $.ajax({
-          url: "/api/data",
-          method: "POST",
-          data : {
-            topic : "generic_brand_810/generic_device/v1/common",
-            limit : "1"
-          },
-          success: function(data) {
-            console.log(data);
-            var Message;
-            var newMessage;
-            var newMessage1;
-            var Messages;
-            var bar;
-              for(var i in data) {
-                Message = data[0].message;
-                newMessage = Message.replace(',{',',');
-                newMessage1 = newMessage.replace('},', ',');
-                Messages = JSON.parse(newMessage1);
-                myLineChart.data.datasets[1].data.splice(0, 1);
-                myLineChart.data.datasets[1].data.push(Messages.kelembaban); 
-                $("#kelembaban").text(Messages.kelembaban+"%");
-                myLineChart.update();
-                bar = parseInt(Messages.kelembaban);
-                if(bar <= 25 ){
-                  $('#kelembabanbar').width('25%').removeClass('bg-red bg-yellow bg-green').addClass('bg-blue');
-                } else if(bar <= 50) {
-                  $('#kelembabanbar').width('50%').removeClass('bg-blue bg-red bg-yellow').addClass('bg-green');
-                } else if(bar <= 75) {
-                  $('#kelembabanbar').width('75%').removeClass('bg-blue bg-yellow bg-green').addClass('bg-yellow');
-                } else if(bar <= 100) {
-                  $('#kelembabanbar').width('100%').removeClass('bg-yellow bg-blue bg-green').addClass('bg-red');
-                }
-              }
-          },
-          error: function(data) {
-            console.log(data);
-          }
-        });
-        $.ajax({
-          url: "/api/data",
-          method: "POST",
-          data : {
-            topic : "/sensor/gas",
-            limit : "1"
-          },
-          success: function(data) {
-            console.log(data);
-              for(var i in data) {
-                asap.data.labels.push(data[i].date);
-                asap.data.labels.splice(0, 1);
-                asap.data.datasets[0].data.splice(0, 1);
-                console.log(asap.data.datasets[0].data);
-                asap.data.datasets[0].data.push(data[i].message);
-                if (data[i].message <= 100) {
-                $("#asaps").text("Tidak Ada Kebocoran GAS");
-                }
-                else{
-                  $("#asaps").text("Ada Kebocoran GAS");
-                } 
-                asap.update();
-              }
-          },
-          error: function(data) {
-            console.log(data);
-          }
-        });
-}
-
-setInterval(function(){
-  adddata();
-},6000);
-
-var option = {
-  showLines: true,
-  scales: {
-    yAxes: [{
-      display: true,
-      ticks: {
-        beginAtZero:true,
-        min: 0,
-        max: 100  
+    options: {
+      animation: { duration: 300 },
+      scales: {
+        x: { ...commonScaleConfig },
+        y: { ...commonScaleConfig, min: 0, max: 100 }
+      },
+      plugins: {
+        legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
       }
-    }]
-  }
-};
-var option1 = {
-  showLines: true,
-  scales: {
-    yAxes: [{
-      display: true,
-      ticks: {
-        beginAtZero:true,
-        min: 0,
-        max: 800  
-      }
-    }]
-  }
-};
-var myLineChart = Chart.Line(canvas,{
-  data:data1,
-  options:option
-});
-var asap = Chart.Line(canvas1,{
-  data:data2,
-  options:option1
-});
-
+    }
   });
-  
+
+  const gasChart = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: [...emptyLabels],
+      datasets: [{
+        label: 'Gas Level',
+        data: [...emptyData],
+        borderColor: 'rgba(249,115,22,0.9)',
+        backgroundColor: 'rgba(249,115,22,0.1)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: 'rgba(249,115,22,1)',
+        pointRadius: 3,
+      }]
+    },
+    options: {
+      animation: { duration: 300 },
+      scales: {
+        x: { ...commonScaleConfig },
+        y: { ...commonScaleConfig, min: 0, max: 800 }
+      },
+      plugins: {
+        legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+      }
+    }
+  });
+
+  function addData() {
+    // Single combined call for temp + humidity (same MQTT topic)
+    $.ajax({
+      url: '/api/data',
+      method: 'POST',
+      data: { topic: 'generic_brand_810/generic_device/v1/common', limit: '1' },
+      success: function(data) {
+        if (!data || !data[0]) return;
+        let msg = data[0].message
+          .replace(',{', ',')
+          .replace('},', ',');
+        try {
+          const parsed = JSON.parse(msg);
+          const timestamp = data[0].date;
+
+          // Temperature
+          const temp = parsed.suhu;
+          $('#suhu').text(temp + '°C');
+          myLineChart.data.labels.push(timestamp);
+          myLineChart.data.labels.shift();
+          myLineChart.data.datasets[0].data.push(temp);
+          myLineChart.data.datasets[0].data.shift();
+          const tempPct = Math.min(Math.max((temp / 50) * 100, 0), 100);
+          $('#suhuBar').css('width', tempPct + '%');
+
+          // Humidity (same data, same call - no duplicate request)
+          const hum = parsed.kelembaban;
+          $('#kelembaban').text(hum + '%');
+          myLineChart.data.datasets[1].data.push(hum);
+          myLineChart.data.datasets[1].data.shift();
+          $('#kelembabanbar').css('width', Math.min(hum, 100) + '%');
+
+          myLineChart.update();
+        } catch(e) { console.warn('Parse error:', e); }
+      }
+    });
+
+    // Gas sensor - separate topic
+    $.ajax({
+      url: '/api/data',
+      method: 'POST',
+      data: { topic: '/sensor/gas', limit: '1' },
+      success: function(data) {
+        if (!data || !data[0]) return;
+        const val = parseFloat(data[0].message);
+        gasChart.data.labels.push(data[0].date);
+        gasChart.data.labels.shift();
+        gasChart.data.datasets[0].data.push(val);
+        gasChart.data.datasets[0].data.shift();
+        gasChart.update();
+        $('#asaps').text(val <= 100 ? 'Normal' : 'Gas Detected!');
+        const gasPct = Math.min((val / 800) * 100, 100);
+        $('#gasBar').css('width', gasPct + '%');
+      }
+    });
+  }
+
+  addData();
+  setInterval(addData, 6000);
+});
 </script>
 </body>
 </html>

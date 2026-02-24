@@ -1,198 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <% include partials/head %>
 </head>
-<body class="hold-transition skin-green sidebar-mini">
-<!-- Site wrapper -->
+<body>
 <div class="wrapper">
-  <% include partials/header %>
-
   <% include partials/sidebar %>
-  
-  <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Controls
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="/users"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="#"><i class="fa fa-power-off"></i> Controls</a></li>
-      </ol>
-    </section>
-   <section class="content">
-    <div class="row">
-      <div class="col-lg-3">
-        <div class="box box-solid box-primary">
-          <div class="box-header">
-            <h3 class="box-title">Lampu 1</h3>
-          </div>
-          <div class="box-body">
-              <div class="row">
-                  <div class="col-sm-12 text-center">
-                    <h3>
-                      Status : <span id="lampu1">Unknow</span>
-                    </h3>
-                  </div>
-              </div>
-          </div>
-          <div class="box-footer">
-            <div class="row">
-              <div class="col-sm-6">
-                  <button onclick="kirim('ON1')" id="on1" type="button" class="btn btn-success col-sm-12">ON</button>
-              </div>
-              <div class="col-sm-6">
-                  <button id="off1" onclick="kirim('OFF1')" type="button" class="btn btn-danger col-sm-12">OFF</button>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="content-area">
+    <% include partials/header %>
+    <main class="page-content">
+      <div class="breadcrumb-area">
+        <h1>Controls</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/users">Home</a></li>
+            <li class="breadcrumb-item active">Controls</li>
+          </ol>
+        </nav>
       </div>
-      <div class="col-lg-3">
-          <div class="box box-solid box-primary">
-            <div class="box-header">
-              <h3 class="box-title">Lampu 2</h3>
+
+      <div class="row g-3">
+        <% [1,2,3,4].forEach(function(n) { %>
+        <div class="col-lg-3 col-md-6">
+          <div class="device-card">
+            <div class="device-card-header">
+              <div class="device-name">Light <%= n %></div>
+              <div class="device-icon"><i class="fa fa-lightbulb"></i></div>
             </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                      <h3>
-                        Status : <span id="lampu2">Unknow</span>
-                      </h3>
-                    </div>
-                </div>
+            <div class="device-status">
+              <span class="status-dot unknown" id="dot<%= n %>"></span>
+              Status: <span id="lampu<%= n %>">Unknown</span>
             </div>
-            <div class="box-footer">
-              <div class="row">
-                <div class="col-sm-6">
-                    <button id="on2" type="button" onclick="kirim('ON2')" class="btn btn-success col-sm-12">ON</button>
-                </div>
-                <div class="col-sm-6">
-                    <button id="off2" type="button" onclick="kirim('OFF2')" class="btn btn-danger col-sm-12">OFF</button>
-                </div>
-              </div>
+            <div class="device-toggle-row">
+              <span class="toggle-label">OFF</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="switch<%= n %>" onchange="toggleDevice(<%= n %>, this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label">ON</span>
             </div>
           </div>
         </div>
-        <div class="col-lg-3">
-            <div class="box box-solid box-primary">
-              <div class="box-header">
-                <h3 class="box-title">Lampu 3</h3>
-              </div>
-              <div class="box-body">
-                  <div class="row">
-                      <div class="col-sm-12 text-center">
-                        <h3>
-                          Status : <span id="lampu3">Unknow</span>
-                        </h3>
-                      </div>
-                  </div>
-              </div>
-              <div class="box-footer">
-                <div class="row">
-                  <div class="col-sm-6">
-                      <button id="on3" type="button" onclick="kirim('ON3')" class="btn btn-success col-sm-12">ON</button>
-                  </div>
-                  <div class="col-sm-6">
-                      <button id="off3" type="button" onclick="kirim('OFF3')" class="btn btn-danger col-sm-12">OFF</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="box box-solid box-primary">
-              <div class="box-header">
-                <h3 class="box-title">Lampu 3</h3>
-              </div>
-              <div class="box-body">
-                  <div class="row">
-                      <div class="col-sm-12 text-center">
-                        <h3>
-                          Status : <span id="lampu4">Unknow</span>
-                        </h3>
-                      </div>
-                  </div>
-              </div>
-              <div class="box-footer">
-                <div class="row">
-                  <div class="col-sm-6">
-                      <button id="on4" type="button" onclick="kirim('ON4')" class="btn btn-success col-sm-12">ON</button>
-                  </div>
-                  <div class="col-sm-6">
-                      <button id="off4" type="button" onclick="kirim('OFF34')" class="btn btn-danger col-sm-12">OFF</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-    </div>
-    </section>
+        <% }); %>
+      </div>
+    </main>
+    <% include partials/footer %>
   </div>
-  
-  <% include partials/footer %>
-    
 </div>
-
 <% include partials/script %>
-
 <script>
-  $(document).ready(function () {
-    $('.sidebar-menu').tree();
+function toggleDevice(num, isOn) {
+  const msg = (isOn ? 'ON' : 'OFF') + num;
+  $.ajax({
+    url: '/api/mqtt/publish',
+    method: 'POST',
+    data: { topic: '/controls', pesan: msg },
+    error: function() {
+      console.warn('MQTT publish failed for device', num);
+    }
   });
-  function kirim(data) {
-      $.ajax({
-          url: "https://server1.stmiot-tech.xyz/api/mqtt/publish",
-          method: "POST",
-          data : {
-            topic : "/controls",
-            pesan : data
-          },
-          success: function(data) {
-            console.log(data);
-              for(var i in data) {
-                console.log(data[i].status);
-                console.log(data[i].topic);
-              }
-          },
-          error: function(data) {
-            console.log(data);
-          }
-        });
-  }
-  function cekdata(angka){
-        $.ajax({
-          url: "https://server1.stmiot-tech.xyz/api/data",
-          method: "POST",
-          data : {
-            topic : "/status/lampu"+angka,
-            limit: "1"
-          },
-          success: function(data) {
-            console.log(data);
-              for(var i in data) { 
-                $("#lampu"+angka).text(data[i].message);
-                if (data[i].message === "ON") {
-                  $("#on"+angka).addClass("disabled");
-                  $("#off"+angka).removeClass("disabled");
-                }else{
-                  $("#off"+angka).addClass("disabled");
-                  $("#on"+angka).removeClass("disabled");
-                }
-              }
-          },
-          error: function(data) {
-            console.log(data);
-          }
-        });
-};
-setInterval(function(){
-  cekdata('1');
-  cekdata('2');
-  cekdata('3');
-  cekdata('4');
-},3000);
-  
+}
+
+function cekStatus(num) {
+  $.ajax({
+    url: '/api/data',
+    method: 'POST',
+    data: { topic: '/status/lampu' + num, limit: '1' },
+    success: function(data) {
+      if (!data || !data[0]) return;
+      const status = data[0].message;
+      const isOn = status === 'ON';
+      $('#lampu' + num).text(status);
+      $('#switch' + num).prop('checked', isOn);
+      const dot = $('#dot' + num);
+      dot.removeClass('on off unknown');
+      dot.addClass(isOn ? 'on' : 'off');
+    }
+  });
+}
+
+$(document).ready(function() {
+  [1,2,3,4].forEach(cekStatus);
+  setInterval(function() {
+    [1,2,3,4].forEach(cekStatus);
+  }, 3000);
+});
 </script>
 </body>
 </html>
