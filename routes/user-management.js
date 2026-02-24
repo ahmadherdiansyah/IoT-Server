@@ -42,6 +42,13 @@ router.post('/create', requireAuth,
 
 router.post('/delete/:id', requireAuth, async (req, res, next) => {
   try {
+    const mongoose = require('mongoose');
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.redirect('/user-management');
+    }
+    if (req.params.id === req.user._id.toString()) {
+      return res.redirect('/user-management');
+    }
     await User.findByIdAndDelete(req.params.id);
     res.redirect('/user-management');
   } catch (err) {

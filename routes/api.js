@@ -17,6 +17,9 @@ router.get('/', (req, res) => {
 router.post('/data', async (req, res, next) => {
   try {
     const limit = parseInt(req.body.limit) || 10;
+    if (!req.body.topic) {
+      return res.json([]);
+    }
     const results = await data.find({ topic: req.body.topic })
       .limit(limit)
       .sort({ timestamp: -1 });
@@ -29,6 +32,9 @@ router.post('/data', async (req, res, next) => {
 router.get('/data', async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
+    if (!req.query.topic) {
+      return res.json([]);
+    }
     const results = await data.find({ topic: req.query.topic })
       .limit(limit)
       .sort({ timestamp: -1 });
