@@ -1,22 +1,11 @@
-var express = require('express');
-var User = require('../models/user');
-var router = express.Router();
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  User.findById(req.session.userId)
-      .exec(function (error, user) {
-        if (error) {
-          return next(error);
-        } else {
-          if (user === null) {
-            var err = new Error('Not authorized! Go back!');
-            err.status = 400;
-            return next(err);
-          } else {
-            return res.render('cctv',{data : user});
-          }
-        }
-      });
+// routes/cctv.js
+const express = require('express');
+const requireAuth = require('../middleware/auth');
+
+const router = express.Router();
+
+router.get('/', requireAuth, (req, res) => {
+  res.render('cctv', { data: req.user });
 });
 
 module.exports = router;
