@@ -1,4 +1,16 @@
 require('dotenv').config();
+
+// Validate required environment variables before any module loads that depend on them
+if (!process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET environment variable is required. Copy .env.example to .env and set a value.');
+}
+if (!process.env.MONGO_URI) {
+  throw new Error('MONGO_URI environment variable is required.');
+}
+if (!process.env.MQTT_HOST) {
+  throw new Error('MQTT_HOST environment variable is required.');
+}
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -22,18 +34,6 @@ const cctv = require('./routes/cctv');
 const userManagement = require('./routes/user-management');
 
 const app = express();
-
-if (!process.env.SESSION_SECRET) {
-  throw new Error('SESSION_SECRET environment variable is required. Copy .env.example to .env and set a value.');
-}
-
-if (!process.env.MONGO_URI) {
-  throw new Error('MONGO_URI environment variable is required.');
-}
-
-if (!process.env.MQTT_HOST) {
-  throw new Error('MQTT_HOST environment variable is required.');
-}
 
 mongoose.connect(process.env.MONGO_URI);
 const db = mongoose.connection;
