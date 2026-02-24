@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <% include partials/head %>
+  <%- include('partials/head') %>
 </head>
 <body>
 <div class="wrapper">
-  <% include partials/sidebar %>
+  <%- include('partials/sidebar') %>
   <div class="content-area">
-    <% include partials/header %>
+    <%- include('partials/header') %>
     <main class="page-content">
       <div class="breadcrumb-area">
         <h1>User Management</h1>
@@ -73,52 +73,54 @@
                   </form>
                 </td>
               </tr>
-
-              <!-- Detail Modal -->
-              <div class="modal fade modal-glass" id="detailModal<%= u._id %>" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">User Detail</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="mb-2">
-                        <span class="form-label-glass d-block">Username</span>
-                        <code style="color:var(--accent-cyan)"><%= u.username %></code>
-                      </div>
-                      <div class="mb-2">
-                        <span class="form-label-glass d-block">Name</span>
-                        <span style="color:var(--text-primary)"><%= u.name %></span>
-                      </div>
-                      <div class="mb-2">
-                        <span class="form-label-glass d-block">Card Key</span>
-                        <span class="<%= (u.card && u.card !== '-') ? 'badge-registered' : 'badge-not-registered' %>">
-                          <%= (u.card && u.card !== '-') ? 'Registered' : 'Not Registered' %>
-                        </span>
-                      </div>
-                      <div class="mb-2">
-                        <span class="form-label-glass d-block">MAC Address</span>
-                        <span class="<%= (u.mac && u.mac !== '-') ? 'badge-registered' : 'badge-not-registered' %>">
-                          <%= (u.mac && u.mac !== '-') ? 'Registered' : 'Not Registered' %>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn-glass" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <% } %>
             </tbody>
           </table>
         </div>
       </div>
     </main>
-    <% include partials/footer %>
+    <%- include('partials/footer') %>
   </div>
 </div>
+
+<!-- Detail Modals -->
+<% for(let i = 0; i < semua.length; i++) { const u = semua[i]; %>
+<div class="modal fade modal-glass" id="detailModal<%= u._id %>" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">User Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2">
+          <span class="form-label-glass d-block">Username</span>
+          <code style="color:var(--accent-cyan)"><%= u.username %></code>
+        </div>
+        <div class="mb-2">
+          <span class="form-label-glass d-block">Name</span>
+          <span style="color:var(--text-primary)"><%= u.name %></span>
+        </div>
+        <div class="mb-2">
+          <span class="form-label-glass d-block">Card Key</span>
+          <span class="<%= (u.card && u.card !== '-') ? 'badge-registered' : 'badge-not-registered' %>">
+            <%= (u.card && u.card !== '-') ? 'Registered' : 'Not Registered' %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="form-label-glass d-block">MAC Address</span>
+          <span class="<%= (u.mac && u.mac !== '-') ? 'badge-registered' : 'badge-not-registered' %>">
+            <%= (u.mac && u.mac !== '-') ? 'Registered' : 'Not Registered' %>
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-glass" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>
 
 <!-- Add User Modal -->
 <div class="modal fade modal-glass" id="addUserModal" tabindex="-1" aria-hidden="true">
@@ -175,6 +177,6 @@
   </div>
 </div>
 
-<% include partials/script %>
+<%- include('partials/script') %>
 </body>
 </html>

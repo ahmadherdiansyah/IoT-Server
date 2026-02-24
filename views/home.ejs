@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <% include partials/head %>
+  <%- include('partials/head') %>
 </head>
 <body>
 <div class="wrapper">
-  <% include partials/sidebar %>
+  <%- include('partials/sidebar') %>
   <div class="content-area">
-    <% include partials/header %>
+    <%- include('partials/header') %>
     <main class="page-content">
       <div class="breadcrumb-area">
         <h1>Dashboard</h1>
@@ -91,10 +91,10 @@
         </div>
       </div>
     </main>
-    <% include partials/footer %>
+    <%- include('partials/footer') %>
   </div>
 </div>
-<% include partials/script %>
+<%- include('partials/script') %>
 <script>
 $(document).ready(function () {
   const commonScaleConfig = {

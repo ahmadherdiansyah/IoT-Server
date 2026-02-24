@@ -8,15 +8,15 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.4",
     "bootstrap": "^5.3.8",
     "chart.js": "^2.9.4",
-    "connect-mongo": "^6.0.0",
-    "cookie-parser": "~1.4.3",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "~1.4.7",
     "debug": "~2.6.9",
     "dotenv": "^17.3.1",
-    "ejs": "~2.5.7",
-    "express": "~4.17.3",
+    "ejs": "^3.1.10",
+    "express": "^4.22.1",
     "express-http-proxy": "^1.2.0",
     "express-rate-limit": "^8.2.1",
     "express-session": "^1.15.6",
@@ -26,8 +26,7 @@
     "http-errors": "~1.6.2",
     "jquery": "^3.5.0",
     "mongoose": "^8.23.0",
-    "morgan": "^1.9.1",
-    "mqtt": "^2.18.8",
-    "pg-promise": "^8.4.5"
+    "morgan": "^1.10.0",
+    "mqtt": "^5.15.0"
   }
 }

@@ -18,9 +18,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
-const { MongoStore } = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const proxy = require('express-http-proxy');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -50,12 +49,6 @@ app.use(session({
   cookie: { httpOnly: true, sameSite: 'lax' },
 }));
 
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 20,
-  message: 'Too many login attempts, please try again later.',
-});
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
@@ -64,8 +57,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', loginLimiter, login);
-app.use('/login', loginLimiter, login);
+app.use('/', login);
+app.use('/login', login);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 app.use('/api/mqtt', mqttapi);

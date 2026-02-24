@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install dependencies first (layer cache)
 COPY package*.json ./
-RUN npm install
+RUN mkdir -p public/css public/js && npm install
 
 # Copy source
 COPY . .

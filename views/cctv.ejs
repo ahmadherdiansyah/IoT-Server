@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% include partials/head %>
+  <%- include('partials/head') %>
   <style>
   .slidecontainer {
     width: 100%; /* Width of the outside container */
@@ -46,9 +46,9 @@
 <body class="hold-transition skin-green sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <% include partials/header %>
+  <%- include('partials/header') %>
 
-  <% include partials/sidebar %>
+  <%- include('partials/sidebar') %>
   
   <div class="content-wrapper">
     <section class="content-header">
@@ -95,11 +95,11 @@
     </section>
   </div>
   
-    <% include partials/footer %>
+    <%- include('partials/footer') %>
     
 </div>
 
-  <% include partials/script %>
+  <%- include('partials/script') %>
 
 <script>
   $(document).ready(function () {
