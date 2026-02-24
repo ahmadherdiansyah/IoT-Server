@@ -1,6 +1,9 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
-var UserSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
+const SALT_ROUNDS = 10;
+
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -9,7 +12,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    trim: true
+    trim: true,
   },
   password: {
     type: String,
@@ -21,47 +24,27 @@ var UserSchema = new mongoose.Schema({
   },
   card: {
     type: String,
-    index: true
+    index: true,
   },
   mac: {
     type: String,
-    index: true
-  }
-});
-//authenticate input against database
-UserSchema.statics.authenticate = function (username, password, callback) {
-  User.findOne({ username: username })
-    .exec(function (err, user) {
-      if (err) {
-        return callback(err)
-      } else if (!user) {
-        var err = new Error('User not found.');
-        err.status = 401;
-        return callback(err);
-      }
-      bcrypt.compare(password, user.password, function (err, result) {
-        if (result === true) {
-          return callback(null, user);
-        } else {
-          return callback();
-        }
-      })
-    });
-}
-//hashing a password before saving it to the database
-UserSchema.pre('save', function (next) {
-  var user = this;
-  bcrypt.hash(user.password, null, null, function (err, hash) {
-    if (err) {
-    return next(err);
-    //res.send(err);
-    }
-    user.password = hash;
-    next();
-  })
+    index: true,
+  },
 });
 
+// async static — callers can await directly, no Promise wrapping needed
+UserSchema.statics.authenticate = async function (username, password) {
+  const user = await this.findOne({ username });
+  if (!user) return null;
+  const match = await bcrypt.compare(password, user.password);
+  return match ? user : null;
+};
 
-var User = mongoose.model('Mqtt_user', UserSchema);
+// only hash when password field actually changed
+UserSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
+});
+
+const User = mongoose.model('Mqtt_user', UserSchema);
 module.exports = User;
-
