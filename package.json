@@ -20,7 +20,7 @@
     "hide-powered-by": "^1.0.0",
     "http-errors": "~1.6.2",
     "jquery": "^3.5.0",
-    "mongoose": "^5.7.5",
+    "mongoose": "^6.13.6",
     "morgan": "^1.9.1",
     "mqtt": "^2.18.8",
     "pg-promise": "^8.4.5",
